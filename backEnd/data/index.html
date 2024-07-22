@@ -1,0 +1,33 @@
+<div class="new-product-loop" data-url="/products/nhan-ban-cua-com-ba-roi">
+    <div class="new-product-loop-head">
+        <img
+            class="img-responsive"
+            src="//product.hstatic.net/200000043306/product/ba_roi_cce6db8e793a4997bba1b9ff309e0fde_grande.png"
+            alt="Cơm ba rọi ngũ vị"></div>
+        <div class="new-product-loop-body">
+            <h3>
+                Cơm ba rọi ngũ vị
+            </h3>
+            <div class="new-product-loop-price">
+
+                <span>49,000đ</span>
+            </div>
+        </div>
+        <div class="new-product-loop-action">
+            <a
+                href="#"
+                data-url="/products/nhan-ban-cua-com-ba-roi"
+                data-vid="1063606857"
+                class="order-trigger">ĐẶT HÀNG</a>
+        </div>
+</div>
+
+<script>
+    document.querySelectorAll('.new-product-loop').forEach((sp)=>{
+        const name =  sp.querySelector('.new-product-loop-body').innerText;
+        const price = sp.querySelector('.new-product-loop-price').innerText.replace(',','')
+        const images =  sp.querySelector(".img-responsive").src
+
+        console.log(name, price, images);
+    })
+</script>

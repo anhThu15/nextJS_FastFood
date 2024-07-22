@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid" >
+      <div class="row">
+        <div class="col-md-2 p-0 collapse collapse-horizontal show" style="min-height: 100vh; background-color: #202124;" id="moMenu">
+          <strong class="text-center d-block p-3" style="color: white;"> 
+            <img src="/img/logo.png" width="80px" alt="">
+            <br>
+            Asian-Food Admin
+           </strong>
+           <div class="list-group ms-2 me-2">
+            <a href="product.html" class="list-group-item list-group-item-action" aria-current="true">
+              Tổng Quan
+            </a>
+            <a href="product_admin.html" class="list-group-item list-group-item-action">Sản Phẩm</a>
+            <a href="#" class="list-group-item list-group-item-action">Danh Mục</a>
+            <a href="#" class="list-group-item list-group-item-action">Tài Khoản </a>
+            <a href="#" class="list-group-item list-group-item-action">Thương Hiệu</a>
+            <a href="index.html" class="list-group-item list-group-item-action" aria-disabled="true">Quay về Trang Chủ</a>
+          </div>
+        </div>
+        <div class="col-md p-0">
+          <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <button class="btn btn-secondary ms-1" type="button" data-bs-toggle="collapse" data-bs-target="#moMenu" aria-expanded="false" aria-controls="moMenu">
+              =
+            </button>
+            <div class="container-fluid">
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <form class="d-flex" role="search">
+                  <input class="form-control " type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-warning" type="submit">Search</button>
+                </form>
+                <ul class="navbar-nav ms-auto mb-2 me-2 mb-lg-0">
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Xin Chào, Anh Thư
+                    </a>
+                    <ul class="dropdown-menu ">
+                      <li><a class="dropdown-item" href="#">Tìm rì ?</a></li>
+                      <li><a class="dropdown-item" href="#">Ai biếc ?</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="#">Đăng Xuất</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+          <!--  hết meu đầu  -->
+          <div class="container-fluid">
+            <div class="row pb-3">
+              <h3> <strong>Trang Quản Lý</strong> </h3>
+              <div class="col-3" data-aos="flip-left" data-aos-duration="3000">
+                <div class="card text-center">
+                  <div class="card-body">
+                    <p class="card-text"><i class="fa-solid fa-box fa-2xl" style="color: #FFD43B;"></i></p>
+                    <h5 class="card-title">Sản Phẩm</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-warning">Quản Lý Sản Phẩm >  </a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="card text-center" data-aos="flip-left" data-aos-duration="3000">
+                  <div class="card-body">
+                    <p class="card-text"><i class="fa-solid fa-list fa-2xl"></i></p>
+                    <h5 class="card-title">Danh Mục</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-warning">Quản Lý Danh Mục</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="card text-center" data-aos="flip-left" data-aos-duration="3000">
+                  <div class="card-body">
+                    <p class="card-text"><i class="fa-regular fa-copyright fa-2xl" style="color: #ff0505;"></i></p>
+                    <h5 class="card-title">Thương Hiệu</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-warning">Quản Lý Thương Hiệu</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="card text-center" data-aos="flip-left" data-aos-duration="3000">
+                  <div class="card-body">
+                    <p class="card-text"><i class="fa-solid fa-cart-shopping fa-2xl" style="color: #63E6BE;"></i></p>
+                    <h5 class="card-title">Đơn Hàng</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-warning">Quản Lý Đơn Hàng</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 pt-3"  data-aos="fade-up-right" data-aos-duration="3000">
+                <div class="card text-center">
+                  <div class="card-header">
+                    <b>Tổng Đơn Hàng</b> 
+                  </div>
+                  <div class="card-body">
+                    <div id="myChart" style="max-width:100%; height:400px"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 pt-3"  data-aos="fade-up-left" data-aos-duration="3000">
+                <div class="card text-center">
+                  <div class="card-header">
+                    <b>Số Khách Mua Hàng</b>
+                  </div>
+                  <div class="card-body">
+                    <div id="myChart2" style="max-width:100%; height:400px"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col pt-3" data-aos="flip-up" >
+                <div class="card text-center">
+                  <div class="card-body">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Tên Sản Phẩm</th>
+                          <th scope="col">Giá Sản Phẩm</th>
+                          <th scope="col"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>@mdo</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>Jacob</td>
+                          <td>Thornton</td>
+                          <td>@fat</td>
+                        </tr>
+                        <tr>
+                          <th scope="row"></th>
+                          <td colspan="2"></td>
+                          <td><a href="#" class="btn ">Xem thêm >  </a></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <!--  thêm trc đây  -->
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+</body>
+</html>
+<script src="https://kit.fontawesome.com/6895c8023a.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+google.charts.load('current',{packages:['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+// Set Data
+const data = google.visualization.arrayToDataTable([
+  ['Price', 'Size'],
+  [50,7],[60,8],[70,8],[80,9],[90,9],
+  [100,9],[110,10],[120,11],
+  [130,14],[140,14],[150,15]
+]);
+// Set Options
+const options = {
+  title: 'House Prices vs. Size',
+  hAxis: {title: 'Square Meters'},
+  vAxis: {title: 'Price in Millions'},
+  legend: 'none'
+};
+// Draw
+const chart = new google.visualization.LineChart(document.getElementById('myChart'));
+chart.draw(data, options);
+}
+</script>
+<script>
+  google.charts.load('current',{packages:['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+  
+  const data = google.visualization.arrayToDataTable([
+    ['Contry', 'Mhl'],
+    ['Italy', 55],
+    ['France', 49],
+    ['Spain', 44],
+    ['USA', 24],
+    ['Argentina', 15]
+  ]);
+  
+  const options = {
+    title: 'World Wide Wine Production'
+  };
+  
+  const chart = new google.visualization.BarChart(document.getElementById('myChart2'));
+  chart.draw(data, options);
+  
+  }
+</script>

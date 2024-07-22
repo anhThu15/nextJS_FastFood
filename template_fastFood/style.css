@@ -1,0 +1,49 @@
+.navBanner{
+    display: flex;
+    justify-content: center;
+}
+.to{
+    height: 60px;
+}
+.to section  .navBanner{
+    position: relative;
+    top: 14px;
+}
+.to section  .navBanner b{
+    padding-left: 20px;
+}
+.to section  .navBanner b .navBt{
+    border-radius: 100px;
+    position: relative;
+    bottom: 5px;
+}
+.xich{
+    position: relative;
+    bottom: 30px;
+}
+.que{
+    width: 70%;
+    height: 2px;
+    background-color:grey;
+    position: relative;
+    top: 20px;
+    left: 20px;
+}
+.cate{
+    display: flex;
+    justify-content:left;
+    flex-wrap: wrap;
+}
+img.card-img-top {
+    height: 300px;
+}
+.vung{
+    background-color: whitesmoke;
+}
+.navH4{
+    text-decoration: none;
+    transition: all 0.5s ease; /* Hiệu ứng chuyển đổi mềm mại */
+}
+.navH4:hover{
+    text-decoration: underline;
+}

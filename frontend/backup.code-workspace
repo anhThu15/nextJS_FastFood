@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "../../fe_user"
+		},
+		{
+			"path": "../backEnd"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../template_fastFood"
+		}
+	],
+	"settings": {}
+}
