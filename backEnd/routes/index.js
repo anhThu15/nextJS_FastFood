@@ -39,7 +39,7 @@ router.get('/products/:type/:brandID', async function(req, res, next) {
 router.get('/product_detail/:id', async function(req, res, next) {
   try{
     var id = req.params.id;
-    var data = await modelProduct.findById(id).populate('categoryId', 'name').populate('brandId', 'name');;
+    var data = await modelProduct.findById(id).populate('categoryId', 'name').populate('brandId', 'name');
     // res.render('admin_product', { title: 'Trang Quản Lý Sản Phẩm', products:data });
   }catch(e){
         res.json({status: 0, message:"không tìm thấy sản phẩm "})

@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
 ////////////////////////////////////////////  product   ////////////////////////////////////////////////////////////////////////////////////
 router.get('/product', async function(req, res, next) {
   try{
-    var data = await modelProduct.find();
+    var data = await modelProduct.find().populate('categoryId', 'name').populate('brandId', 'name');
     res.json(data);
   }catch(e){
     res.json({status: 0, message:"không tìm thấy sản phẩm "})
