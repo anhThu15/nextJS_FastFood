@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
       <div className="row">
         <div className="col-md-2 p-0 collapse collapse-horizontal show" style={{minHeight: "100vh", backgroundColor: "#202124"}} id="moMenu">
           <strong className="text-center d-block p-3" style={{color: "white"}}> 
-            <img src="images/logo.png" width="80px" alt=""/>
+            <img src="/images/logo.png" width="80px" alt=""/>
             <br/>
             Asian-Food Admin
            </strong>
