@@ -66,12 +66,12 @@ export default function RootLayout({ children }) {
             </div>
           </nav>
         {children}
+        {/* <FooterAdmin></FooterAdmin> */}
         </div>
       </div>
     </div>
 
 
-        <FooterAdmin></FooterAdmin>
 
         <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="https://kit.fontawesome.com/6895c8023a.js" crossorigin="anonymous"></script>

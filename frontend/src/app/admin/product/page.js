@@ -1,13 +1,37 @@
+"use client";
+import useSWR from "swr";
+import '../../globals.css'
 import ProductAdmin from "../components/productAdmin";
 
 export default function adminProduct(){
+  const fetcher = (...args)=>fetch(...args).then((res)=>res.json())
+
+  const {data,error,isLoading}=useSWR(`${process.env.NEXT_PUBLIC_API_URL}/admins/productAdmin?page=1`, fetcher)
+
+  if (error) return <div>Lỗi tải dữ liệu</div>
+  if (isLoading) return (
+    <>
+     <div className="loader">
+        <div className="bar1"></div>
+        <div className="bar2"></div>
+        <div className="bar3"></div>
+        <div className="bar4"></div>
+        <div className="bar5"></div>
+        <div className="bar6"></div>
+        <div className="bar7"></div>
+        <div className="bar8"></div>
+        <div className="bar9"></div>
+      </div>
+    </>
+    );
+
     return (
         <>
         <div className="container-fluid">
             <div className="row pb-3">
               <h3><strong>Trang Quản Lý Sản Phẩm <button type="submit" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal"><i className="fa-solid fa-plus" style={{color: "#ffffff"}}></i></button></strong></h3>
               <div className="col-md">
-               <ProductAdmin></ProductAdmin>
+               <ProductAdmin data={data}></ProductAdmin>
               </div>
               {/* <!--  thêm trc đây  --> */}
             </div>
