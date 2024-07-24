@@ -16,14 +16,14 @@ export default function ProductAdmin(props){
                 <th scope="col">Hành Động</th>
               </tr>
             </thead>
-            {props.data.map((product) => {
+            {props.data.map((product,index) => {
                const {  _id ,name, img, description ,price, brandId, categoryId} = product;
                
               return (
                 <>
             <tbody className="table-group-divider">
               <tr>
-                <th scope="row">1</th>
+                <th scope="row">{index + 1}</th>
                 <td>
                     <div class="text-left">
                       <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${img}`} width={150} height={150} class="rounded" alt="..."/>
