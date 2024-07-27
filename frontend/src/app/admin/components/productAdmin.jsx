@@ -1,13 +1,25 @@
+'use client'
 import FooterAdmin from "@/app/layout/admin/footerAdmin";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { take } from "@/redux/slices/updateSlice";
 
 export default function ProductAdmin(props){
+  const dispatch = useDispatch();
+  const router = useRouter()
 
   const deleteItem = async (id) => {
     const data = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/admins/productAdmin/delete_product/`+id)
     .then((res) => res.data )
     window.location.reload();
   }
+
+  const updateItem = async (id) => {
+    dispatch(take(id))
+    router.push('/admin/product/update')
+  }
+
 
     return (
         <>
@@ -43,7 +55,7 @@ export default function ProductAdmin(props){
                 <td className="text-start">{brandId.name}</td>
                 <td className="text-start">{categoryId.name}</td>
                 <td>
-                  <button className="btn btn-warning me-2"><i className="fa-solid fa-pen"></i></button>
+                  <button type="buton" className="btn btn-warning me-2" onClick={() => updateItem(_id)}><i className="fa-solid fa-pen"></i></button>
                   <buton type="buton" className="btn btn-danger" onClick={() => deleteItem(_id)} ><i className="fa-solid fa-trash"></i></buton>
                 </td>
               </tr>

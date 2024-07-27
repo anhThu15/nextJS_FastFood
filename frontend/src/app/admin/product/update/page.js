@@ -1,6 +1,6 @@
 "use client";
 import useSWR from "swr";
-import '../../globals.css'
+import '../../../globals.css'
 import ProductAdmin from "../../components/productAdmin";
 import { useEffect, useRef, useState } from "react";
 
@@ -9,6 +9,7 @@ import * as Yup from 'Yup'
 import { useFormik } from 'formik';
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 export default function adminProductUpdate(){
   const router = useRouter();
@@ -113,6 +114,7 @@ const formik = useFormik({
     );
 
 
+    const id = useSelector((state) => state.update)
 
 
 
@@ -120,9 +122,9 @@ const formik = useFormik({
         <>
         <div className="container-fluid">
             <div className="row pb-3">
-              <h3><strong>Trang Cập Nhập Sản Phẩm <button type="submit" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal"><i className="fa-solid fa-plus" style={{color: "#ffffff"}}></i></button></strong></h3>
+              <h3><strong>Trang Cập Nhập Sản Phẩm {id}  <button type="submit" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal"><i className="fa-solid fa-plus" style={{color: "#ffffff"}}></i></button></strong></h3>
               <div className="col-md">
-               <ProductAdmin data={data}></ProductAdmin>
+
               </div>
               {/* <!--  thêm trc đây  --> */}
             </div>

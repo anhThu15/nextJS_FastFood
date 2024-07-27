@@ -6,6 +6,7 @@ import "../../../public/bootstrap/css/bootstrap.min.css";
 import Link from "next/link";
 import HeaderAmin from "../layout/admin/headerAdmin";
 import FooterAdmin from "../layout/admin/footerAdmin";
+import Providers from "@/redux/provider";
 
 
 export const metadata = {
@@ -65,7 +66,9 @@ export default function RootLayout({ children }) {
               </div>
             </div>
           </nav>
-        {children}
+        <Providers>
+            {children}
+        </Providers>
         {/* <FooterAdmin></FooterAdmin> */}
         </div>
       </div>
