@@ -65,7 +65,7 @@ export default function adminProduct(){
               </div>
               <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Ảnh Sản Phẩm</label>
-                <input type="text" class="form-control" />
+                <input type="file" class="form-control" />
               </div>
               <button type="submit" class="btn btn-warning">Gửi</button>
             </form>

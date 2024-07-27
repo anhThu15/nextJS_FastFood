@@ -29,19 +29,25 @@ router.get('/productAdmin', async function(req, res, next) {
   }
 });
 
-router.post('/product/add_product', async function(req, res, next) {
+router.post('/productAdmin/add_product', [upload.single('image')] , async function(req, res, next) {
   try{
-    console.log(req.body);
-    var {name,price,img,description,type,brandId,categoryId} = req.body;
+    // console.log('Request Body:', req.body);
+    // console.log('Request File:', req.file);
+    // console.log(req.body);
+    var {name,price,description,brandId,categoryId} = req.body;
+    var {img} = req
     var productAdd = {
       name,
       price: Number(price),
       img,
       description,
-      type,
+      type: 'food',
+      rating: 1,
+      hot: false,
       brandId,
       categoryId
     };
+    // console.log(productAdd);
     var result = await modelProduct.create(productAdd);
 
     // console.log(productAdd);
@@ -53,7 +59,6 @@ router.post('/product/add_product', async function(req, res, next) {
     }
   }catch(e){
         res.json({status: 0, message:"chịu lun  "})
-        // console.log(e);
   }
 });
 
