@@ -35,7 +35,7 @@ router.post('/productAdmin/add_product', [upload.single('image')] , async functi
     // console.log('Request File:', req.file);
     // console.log(req.body);
     var {name,price,description,brandId,categoryId} = req.body;
-    var {img} = req
+    var img = req.file.originalname
     var productAdd = {
       name,
       price: Number(price),
