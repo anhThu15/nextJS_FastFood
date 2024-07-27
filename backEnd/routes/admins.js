@@ -78,21 +78,25 @@ router.get('/productAdmin/delete_product/:id', async function(req, res, next) {
   }
   // res.json(data)
 });
-router.post('/product/update_product/:id', async function(req, res, next) {
+router.post('/productAdmin/update_product/:id',  [upload.single('img')] ,async function(req, res, next) {
   try{
     var {id} = req.params
-    var {name,price,img,description,type,brandId,categoryId} = req.body;
+    var {name,price,description,type, rating, hot,brandId,categoryId} = req.body;
+    var img = req.file.originalname
     var productEdit = await modelProduct.findById(id);
+    // res.json(productEdit)
     if(productEdit != null){
       productEdit.name  = name ? name: productEdit.name;
       productEdit.price  = price ? price: productEdit.price;
       productEdit.img  = img ? img: productEdit.img;
       productEdit.description  = description ? description: productEdit.description;
       productEdit.type  = type ? type: productEdit.type;
+      productEdit.rating  = rating ? rating: productEdit.rating;
+      productEdit.hot  = hot ? hot: productEdit.hot;
       productEdit.brandId  = brandId ? brandId: productEdit.brandId;
       productEdit.categoryId  = categoryId ? categoryId: productEdit.categoryId;
     }
-    // console.log(productEdit);
+    console.log(productEdit);
 
     var result = await productEdit.save();
 
@@ -104,7 +108,6 @@ router.post('/product/update_product/:id', async function(req, res, next) {
     }
   }catch(e){
         res.json({status: 0, message:"chịu lun  "})
-        // console.log(e);
   }
 });
 
