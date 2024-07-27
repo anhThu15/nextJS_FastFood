@@ -77,7 +77,7 @@ const formik = useFormik({
               .post(
                   `${process.env.NEXT_PUBLIC_API_URL}/admins/productAdmin/add_product`,data
                 )
-          if (result.status === 1) {
+          if (result.status = 1) {
             alert('Thêm món ăn mới thành công ròi đó cậu ~~ giờ đi chữa lành đi')
             router.push('/admin/product');  
           } else {
@@ -93,7 +93,7 @@ const formik = useFormik({
 
   const fetcher = (...args)=>fetch(...args).then((res)=>res.json())
 
-  const {data,error,isLoading}=useSWR(`${process.env.NEXT_PUBLIC_API_URL}/admins/productAdmin?page=4`, fetcher)
+  const {data,error,isLoading}=useSWR(`${process.env.NEXT_PUBLIC_API_URL}/admins/productAdmin?page=3`, fetcher)
 
   if (error) return <div>Lỗi tải dữ liệu</div>
   if (isLoading) return (
@@ -193,7 +193,7 @@ const formik = useFormik({
               </select>
               </div>
               <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">Thương Hiệu Sản Phẩm</label>
+              <label for="exampleInputPassword1"  class="form-label">Thương Hiệu Sản Phẩm</label>
               <select className='form-control' id="brand" 
                       name="brand" 
                       value={formik.values.brand} 

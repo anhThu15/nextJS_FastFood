@@ -1,6 +1,13 @@
 import FooterAdmin from "@/app/layout/admin/footerAdmin";
+import axios from "axios";
 
 export default function ProductAdmin(props){
+
+  const deleteItem = async (id) => {
+    const data = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/admins/productAdmin/delete_product/`+id)
+    .then((res) => res.data )
+    window.location.reload();
+  }
 
     return (
         <>
@@ -37,7 +44,7 @@ export default function ProductAdmin(props){
                 <td className="text-start">{categoryId.name}</td>
                 <td>
                   <button className="btn btn-warning me-2"><i className="fa-solid fa-pen"></i></button>
-                  <buton className="btn btn-danger"><i className="fa-solid fa-trash"></i></buton>
+                  <buton type="buton" className="btn btn-danger" onClick={() => deleteItem(_id)} ><i className="fa-solid fa-trash"></i></buton>
                 </td>
               </tr>
             </tbody>

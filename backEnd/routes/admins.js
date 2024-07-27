@@ -62,7 +62,7 @@ router.post('/productAdmin/add_product', [upload.single('img')] , async function
   }
 });
 
-router.get('/product/delete_product/:id', async function(req, res, next) {
+router.get('/productAdmin/delete_product/:id', async function(req, res, next) {
   try{
     var {id} = req.params;
     var result = await modelProduct.findByIdAndDelete(id)
