@@ -33,8 +33,8 @@ export default function ProductAdmin(props){
                 </td>
                 <td>{price.toLocaleString()}đ</td>
                 <td className="text-break" style={{width:"300px"}}>{description}</td>
-                <td className="text-center">{brandId.name}</td>
-                <td className="text-center">{categoryId.name}</td>
+                <td className="text-start">{brandId.name}</td>
+                <td className="text-start">{categoryId.name}</td>
                 <td>
                   <button className="btn btn-warning me-2"><i className="fa-solid fa-pen"></i></button>
                   <buton className="btn btn-danger"><i className="fa-solid fa-trash"></i></buton>

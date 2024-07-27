@@ -29,7 +29,7 @@ router.get('/productAdmin', async function(req, res, next) {
   }
 });
 
-router.post('/productAdmin/add_product', [upload.single('image')] , async function(req, res, next) {
+router.post('/productAdmin/add_product', [upload.single('img')] , async function(req, res, next) {
   try{
     // console.log('Request Body:', req.body);
     // console.log('Request File:', req.file);
