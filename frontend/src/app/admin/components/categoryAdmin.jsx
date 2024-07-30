@@ -4,6 +4,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { take } from "@/redux/slices/updateSlice";
+import Link from "next/link";
 
 export default function CategoryAdmin(props){
   const dispatch = useDispatch();
@@ -13,11 +14,6 @@ export default function CategoryAdmin(props){
     const data = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/admins/categoryAdmin/delete_category/`+id)
     .then((res) => res.data )
     window.location.reload();
-  }
-
-  const updateItem = async (id) => {
-    dispatch(take(id))
-    router.push('/admin/category/update')
   }
 
 
@@ -40,7 +36,7 @@ export default function CategoryAdmin(props){
                   <th scope="row">{index + 1}</th>
                   <td>{name}</td>
                   <td>
-                    <button className="btn btn-warning me-2" onClick={() => updateItem(_id)}><i className="fa-solid fa-pen"></i></button>
+                    <Link className="btn btn-warning me-2" href={`/admin/category/update/${_id}`}><i className="fa-solid fa-pen"></i></Link>
                     <buton className="btn btn-danger" onClick={() => deleteItem(_id)} ><i className="fa-solid fa-trash"></i></buton>
                   </td>
                 </tr>

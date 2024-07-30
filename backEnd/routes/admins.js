@@ -317,6 +317,11 @@ router.get('/categoryAdmin', async function(req, res, next) {
   var data = await modelCategory.find();
   res.json(data)
 });
+router.get('/categoryAdmin/:id', async function(req, res, next) {
+  var data = await modelCategory.findById(req.params.id);
+  res.json(data)
+});
+
 router.post('/categoryAdmin/add_category', async function(req, res, next) {
   try{
     var {name} = req.body
@@ -352,8 +357,6 @@ router.post('/categoryAdmin/update_category/:id', async function(req, res, next)
   try{
     var {id} = req.params
     var categoryEdit = await modelCategory.findById(id);
-    res.json(categoryEdit);
-
     var {name} = req.body;
 
     if(name != null){

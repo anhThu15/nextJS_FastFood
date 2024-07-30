@@ -1,63 +1,45 @@
 "use client";
-import '../../../globals.css'
+import { useRouter } from 'next/navigation';
+import '../../../../globals.css'
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useForm } from 'react-hook-form';
 
-export default function adminCategoryUpdate(){
-  const id = useSelector((state) => state.update)
+export default function adminCategoryUpdate({params}){
+  const id = params.id
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
   const router = useRouter();
-  const [idCategory, setIdCategory] = useState();
+  const [category, setCategory] = useState(null);
   useEffect(() =>{
-    const getIdCategory = async () =>{
-      // const name = {}
-      const data =  await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/admins/categoryAdmin/update_category/`+id)
-                                .then((res) => res.data) 
-      setIdCategory(data)
-    }
-    getIdCategory();
-  },[])
+    const getCategory = async () => {
+       const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/admins/categoryAdmin/${id}`)
+                              .then((res) => res.data)
+       setCategory(res)
+       setValue('name', res.name);
+      } 
+      if(id){
+       getCategory();
+      }
+  },[id, setValue])
   // console.log(idCategory);
+  // xử lý form 
 
-// sử lý form dưới đây yup và fromik
-const nameRef = useRef();
-
-const validationSchema = Yup.object({
-  name: Yup.string().required("Tên Sản Phẩm Không Được Để Trống"),
-});
-
-const [formValue, setFormValue] = useState();
-
-const formik = useFormik({
-  initialValues: idCategory || {
-      name: ''
-    },
-    validationSchema,
-    onSubmit: async (values) =>{
-      setFormValue(values)
-      const data = {
-        name: nameRef.current.value
+  const onSubmit = async (data) =>{
+    try {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/admins/categoryAdmin/update_category/${id}`,data)
+                             .then((res)=>res.data)
+      if (res) {
+        alert('thành công ròi đi chữa lãnh hoy ~~~')
+        router.push('/admin/category');
+      } else {
+        // Xử lý hiển thị lỗi
+        console.error(result.error);
       }
-
-      console.log(data);
-
-      try {
-          const result = await axios
-              .post(
-                  `${process.env.NEXT_PUBLIC_API_URL}/admins/categoryAdmin/delete_category/`+id ,data
-                )
-          if (result.status = 1) {
-            alert('Thêm danh mục mới thành công ròi đó cậu ~~ giờ đi chữa lành đi')
-            router.push('/admin/category');
-          } else {
-              alert('thất bại')
-          }
-      } catch (error) {
-          console.log(error);
-      }
+    } catch (error) {
+      console.log(error);
     }
-  })
-  console.log(formik.values.name);
-// kết thúc xử lý form dưới đây yup và fromik
+  }
 
-  
 
     return (
         <>
@@ -65,15 +47,11 @@ const formik = useFormik({
             <div className="row pb-3">
               <h3><strong>Trang Cập Nhập Danh Mục Sản Phẩm #{id} </strong></h3>
               <div className="col-md">
-              <form onSubmit={formik.handleSubmit} >
+              <form onSubmit={handleSubmit(onSubmit)}>
               <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Tên Danh Mục Sản Phẩm</label>
-                <input type="text" class="form-control" 
-                      name="name" 
-                      value={formik.values.name} 
-                      onChange={formik.handleChange} 
-                      ref={nameRef} />
-                {formik.errors.name ? (<div className='text-danger'>{formik.errors.name}</div>) : null}
+                <label for="exampleInputEmail1" class="form-label fw-bold">Tên Danh Mục Sản Phẩm</label>
+                <input type="text" class="form-control" {...register('name', { required: 'Tên danh mục là bắt buộc' })} />
+                {errors.name && <div className="text-danger">{errors.name.message}</div>}
               </div>
               <button type="submit" class="btn btn-warning">Cập Nhập Danh Mục Sản Phẩm Này #{id}</button>
             </form>
