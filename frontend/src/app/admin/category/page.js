@@ -1,33 +1,87 @@
+'use client'
+import useSWR from "swr";
+import CategoryAdmin from "../components/categoryAdmin";
+import '../../globals.css'
+import { useRef, useState } from "react";
+
+import * as Yup from 'Yup'
+import { useFormik } from 'formik';
+import { useRouter } from "next/navigation";
+import axios from "axios";
+
 export default function adminCategory(){
+  // xử lý from
+  const nameRef = useRef();
+  const router = useRouter();
+  
+  const validationSchema = Yup.object({
+    name: Yup.string().required("Tên Sản Phẩm Không Được Để Trống")
+  });
+  
+  const [formValue, setFormValue] = useState();
+  
+  const formik = useFormik({
+    initialValues:{
+        name: ''
+      },
+      validationSchema,
+      onSubmit: async (values) =>{
+        setFormValue(values)
+        const data = {
+          name: nameRef.current.value
+        }
+
+        console.log(data);
+
+        try {
+            const result = await axios
+                .post(
+                    `${process.env.NEXT_PUBLIC_API_URL}/admins/categoryAdmin/add_category`,data
+                  )
+            if (result.status = 1) {
+              alert('Thêm danh mục mới thành công ròi đó cậu ~~ giờ đi chữa lành đi')
+              router.push('/admin/category');
+            } else {
+                alert('thất bại')
+            }
+        } catch (error) {
+            console.log(error);
+        }
+      }
+    })
+  // kết thúc xử lý form 
+
+
+  const fetcher = (...args)=>fetch(...args).then((res)=>res.json())
+  
+  const {data,error,isLoading} = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/admins/categoryAdmin`, fetcher)
+  
+  if (error) return <div>Lỗi tải dữ liệu</div>
+  if (isLoading) return (
+    <>
+     <div className="loader">
+        <div className="bar1"></div>
+        <div className="bar2"></div>
+        <div className="bar3"></div>
+        <div className="bar4"></div>
+        <div className="bar5"></div>
+        <div className="bar6"></div>
+        <div className="bar7"></div>
+        <div className="bar8"></div>
+        <div className="bar9"></div>
+      </div>
+    </>
+    );
+
+
+
     return (
-        <>
+      <>
         <div className="container-fluid">
             <div className="row pb-3">
               <h3><strong>Trang Quản Lý Danh Mục <button type="submit" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal"><i className="fa-solid fa-plus" style={{color: "#ffffff"}}></i></button></strong></h3>
               <div className="col-md">
-                <table className="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Tên & Ảnh Sản Phẩm </th>
-                      <th scope="col">Giá Sản Phẩm</th>
-                      <th scope="col">Mô Tả Sản Phẩm</th>
-                      <th scope="col">Hành Động</th>
-                    </tr>
-                  </thead>
-                  <tbody className="table-group-divider">
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>Mark</td>
-                      <td>Otto</td>
-                      <td>@mdo</td>
-                      <td>
-                        <button className="btn btn-warning me-2"><i className="fa-solid fa-pen"></i></button>
-                        <buton className="btn btn-danger"><i className="fa-solid fa-trash"></i></buton>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <CategoryAdmin data={data}></CategoryAdmin>
               </div>
               {/* <!--  thêm trc đây  --> */}
             </div>
@@ -40,30 +94,23 @@ export default function adminCategory(){
     
           {/* <!-- Modal Header --> */}
           <div class="modal-header">
-            <h4 class="modal-title">Thêm Sản Phẩm</h4>
+            <h4 class="modal-title">Thêm Danh Mục Sản Phẩm</h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
     
           {/* <!-- Modal body --> */}
           <div class="modal-body">
-            <form>
+            <form onSubmit={formik.handleSubmit}>
               <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Tên Sản Phẩm</label>
-                <input type="text" class="form-control" />
+                <label for="exampleInputEmail1" class="form-label">Tên Danh Mục Sản Phẩm</label>
+                <input type="text" class="form-control" 
+                      name="name" 
+                      value={formik.values.name} 
+                      onChange={formik.handleChange} 
+                      ref={nameRef} />
+                {formik.errors.name ? (<div className='text-danger'>{formik.errors.name}</div>) : null}
               </div>
-              <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Giá Sản Phẩm</label>
-                <input type="number" class="form-control" />
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Mô Tả Sản Phẩm</label>
-                <input type="text" class="form-control" />
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Ảnh Sản Phẩm</label>
-                <input type="text" class="form-control" />
-              </div>
-              <button type="submit" class="btn btn-warning">Gửi</button>
+              <button type="submit" class="btn btn-warning">Thêm Danh Mục Mới</button>
             </form>
           </div>
     

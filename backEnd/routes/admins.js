@@ -311,11 +311,11 @@ router.post('/brand/update_brand/:id', async function(req, res, next) {
 //////////////////////////////////////////   category  //////////////////////////////////////////////////////////////////////////////////////
 
 
-router.get('/category', async function(req, res, next) {
+router.get('/categoryAdmin', async function(req, res, next) {
   var data = await modelCategory.find();
   res.json(data)
 });
-router.post('/category/add_category', async function(req, res, next) {
+router.post('/categoryAdmin/add_category', async function(req, res, next) {
   try{
     var {name} = req.body
     var categoryAdd = {name};
@@ -332,7 +332,7 @@ router.post('/category/add_category', async function(req, res, next) {
   }
 });
 
-router.get('/category/delete_category/:id', async function(req, res, next) {
+router.get('/categoryAdmin/delete_category/:id', async function(req, res, next) {
   try{
     var {id} = req.params;
     var result = await modelCategory.findByIdAndDelete(id)
@@ -346,24 +346,28 @@ router.get('/category/delete_category/:id', async function(req, res, next) {
   }
 });
 
-router.post('/category/update_category/:id', async function(req, res, next) {
+router.post('/categoryAdmin/update_category/:id', async function(req, res, next) {
   try{
     var {id} = req.params
-    var {name} = req.body;
     var categoryEdit = await modelCategory.findById(id);
-    console.log(categoryEdit);
-    if(categoryEdit != null){
+    res.json(categoryEdit);
+
+    var {name} = req.body;
+
+    if(name != null){
       categoryEdit.name  = name ? name: categoryEdit.name;
+
+      var result = await categoryEdit.save();
+      
+      if(result != null){
+        res.json({status: 1, message:"Thành công", data:result});
+        // res.redirect('/admins/product');
+      }else{
+        res.json({status: 0, message:"thất bại"});
+      }
     }
 
-    var result = await categoryEdit.save();
 
-    if(result != null){
-      res.json({status: 1, message:"Thành công"});
-      // res.redirect('/admins/product');
-    }else{
-      res.json({status: 0, message:"thất bại"});
-    }
   }catch(e){
         res.json({status: 0, message:"chịu lun  "})
         // console.log(e);

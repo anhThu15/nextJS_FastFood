@@ -12,10 +12,18 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 export default function adminProductUpdate(){
+  const id = useSelector((state) => state.update)
   const router = useRouter();
   const [categories, setCategories] = useState([]);
   const [brands, setBrand] = useState([]);
+  const [productValue, setProductValue] = useState([]);
+  const [file, setFile] = useState(null);
   useEffect(() => {
+    const getProductValue = async () => {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product_detail/`+id);
+      const data = await res.json();
+      setProductValue(data);
+    };
     const getCategories = async () => {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admins/category`);
       const data = await res.json();
@@ -26,6 +34,7 @@ export default function adminProductUpdate(){
       const data = await res.json();
       setBrand(data);
     };
+    getProductValue();
     getCategories();
     getBrand();
   },[])
@@ -37,6 +46,9 @@ const descriptionRef = useRef();
 const categoryRef = useRef();
 const brandRef = useRef();
 const imageRef = useRef(null);
+const typeRef = useRef();
+const ratingRef = useRef();
+const hotRef = useRef();
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Tên Sản Phẩm Không Được Để Trống"),
@@ -48,25 +60,34 @@ const validationSchema = Yup.object({
 const [formValue, setFormValue] = useState();
 
 const formik = useFormik({
-  initialValues:{
+  enableReinitialize: true, 
+  initialValues: productValue ||{
       name: '',
       price: '',
-      img: '',
       description: '',
-      categoryId: '',
-      brandId:'',
+      type:'',
+      rating:'',
+      hot:'',
+      categoryId: {
+        _id:'',
+        name: ''
+      },
+      brandId:{
+        _id:'',
+        name: ''
+      }
     },
     validationSchema,
     onSubmit: async (values) =>{
       setFormValue(values)
 
-       const data = new FormData();
-       data.append('name', nameRef.current.value);
-       data.append('price', priceRef.current.value);
-       data.append('description', descriptionRef.current.value);
-       data.append('categoryId', categoryRef.current.value);
-       data.append('brandId', brandRef.current.value);
-       data.append('img', imageRef.current.files[0]);
+      //  const data = new FormData();
+      //  data.append('name', nameRef.current.value);
+      //  data.append('price', priceRef.current.value);
+      //  data.append('description', descriptionRef.current.value);
+      //  data.append('categoryId', categoryRef.current.value);
+      //  data.append('brandId', brandRef.current.value);
+      //  data.append('img', imageRef.current.files[0]);
 
       //  for (let pair of data.entries()) {
       //   console.log(pair[0] + ': ' + pair[1]);
@@ -74,76 +95,43 @@ const formik = useFormik({
       // console.log(imageRef.current.files[0].name);
 
       try {
-          const result = await axios
-              .post(
-                  `${process.env.NEXT_PUBLIC_API_URL}/admins/productAdmin/add_product`,data
-                )
-          if (result.status = 1) {
-            alert('Thêm món ăn mới thành công ròi đó cậu ~~ giờ đi chữa lành đi')
-            router.push('/admin/product');  
-          } else {
-              alert('thất bại')
-          }
+
+
+          // const formData = new FormData();
+          // Object.keys(values).forEach((key) => {
+          //   formData.append(key, values[key]);
+          // });
+          // if (file) {
+          //   formData.append('img', file);
+          // }
+
+
+          // const result = await axios
+          //     .post(
+          //         `${process.env.NEXT_PUBLIC_API_URL}/admins/productAdmin/add_product`,data
+          //       )
+          // if (result.status = 1) {
+          //   alert('Thêm món ăn mới thành công ròi đó cậu ~~ giờ đi chữa lành đi')
+          //   router.push('/admin/product');  
+          // } else {
+          //     alert('thất bại')
+          // }
       } catch (error) {
           console.log(error);
       }
     }
   })
 // kết thúc xử lý form dưới đây yup và fromik
-
-
-  const fetcher = (...args)=>fetch(...args).then((res)=>res.json())
-
-  const {data,error,isLoading}=useSWR(`${process.env.NEXT_PUBLIC_API_URL}/admins/productAdmin?page=3`, fetcher)
-
-  if (error) return <div>Lỗi tải dữ liệu</div>
-  if (isLoading) return (
-    <>
-     <div className="loader">
-        <div className="bar1"></div>
-        <div className="bar2"></div>
-        <div className="bar3"></div>
-        <div className="bar4"></div>
-        <div className="bar5"></div>
-        <div className="bar6"></div>
-        <div className="bar7"></div>
-        <div className="bar8"></div>
-        <div className="bar9"></div>
-      </div>
-    </>
-    );
-
-
-    const id = useSelector((state) => state.update)
-
-
+console.log(formik.values?.brandId?.name);
+  
 
     return (
         <>
         <div className="container-fluid">
             <div className="row pb-3">
-              <h3><strong>Trang Cập Nhập Sản Phẩm {id}  <button type="submit" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal"><i className="fa-solid fa-plus" style={{color: "#ffffff"}}></i></button></strong></h3>
+              <h3><strong>Trang Cập Nhập Sản Phẩm #{id} </strong></h3>
               <div className="col-md">
-
-              </div>
-              {/* <!--  thêm trc đây  --> */}
-            </div>
-          </div>
-
-          {/* <!-- model dưới đây  --> */}
-    <div class="modal" id="myModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-    
-          {/* <!-- Modal Header --> */}
-          <div class="modal-header">
-            <h4 class="modal-title">Thêm Sản Phẩm</h4>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-    
-          {/* <!-- Modal body --> */}
-          <div class="modal-body">
-            <form onSubmit={formik.handleSubmit} >
+              <form onSubmit={formik.handleSubmit} >
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Tên Sản Phẩm</label>
                 <input type="text" class="form-control" 
@@ -175,16 +163,50 @@ const formik = useFormik({
                 <label for="exampleInputPassword1" class="form-label">Ảnh Sản Phẩm</label>
                 <input type="file" class="form-control" 
                       name="img" 
-                      value={formik.values.img} 
-                      onChange={formik.handleChange} 
                       ref={imageRef}/>
-                 {formik.errors.img ? (<div className='text-danger'>{formik.errors.img}</div>) : null}
+                 {/* {formik.errors.img ? (<div className='text-danger'>{formik.errors.img}</div>) : null} */}
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Loại Sản Phẩm</label>
+                <select className='form-control' 
+                        name="type"
+                        value={formik.values.type} 
+                        onChange={formik.handleChange} 
+                        ref={typeRef} >
+                  <option value={'food'}>Food</option>
+                  <option value={'topping'}>Topping</option>
+              </select>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Điểm Sản Phẩm</label>
+                <select className='form-control' 
+                        name="rating"
+                        value={formik.values.rating} 
+                        onChange={formik.handleChange} 
+                        ref={ratingRef} >
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+              </select>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Sản Phẩm Hot</label>
+                <select className='form-control' 
+                        name="hot"
+                        value={formik.values.hot} 
+                        onChange={formik.handleChange} 
+                        ref={hotRef} >
+                  <option value={true}>Hot</option>
+                  <option value={false}>!Hot</option>
+              </select>
               </div>
               <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Danh Mục Sản Phẩm</label>
-              <select className='form-control' id="category"
-                      name="category" 
-                      value={formik.values.category} 
+              <select className='form-control'
+                      name="categoryId" 
+                      value={formik.values?.categoryId?.name} 
                       onChange={formik.handleChange} 
                       ref={categoryRef} >
                 {categories.map((category) => (
@@ -196,9 +218,9 @@ const formik = useFormik({
               </div>
               <div class="mb-3">
               <label for="exampleInputPassword1"  class="form-label">Thương Hiệu Sản Phẩm</label>
-              <select className='form-control' id="brand" 
-                      name="brand" 
-                      value={formik.values.brand} 
+              <select className='form-control'
+                      name="brandId" 
+                      value={formik.values?.brandId?.name} 
                       onChange={formik.handleChange} 
                       ref={brandRef}>
                 {brands.map((brand) => (
@@ -208,18 +230,12 @@ const formik = useFormik({
                 ))}
               </select>
               </div>
-              <button type="submit" class="btn btn-warning">Thêm Món Mới</button>
+              <button type="submit" class="btn btn-warning">Cập Nhập Món Này #{id}</button>
             </form>
+              </div>
+              {/* <!--  thêm trc đây  --> */}
+            </div>
           </div>
-    
-          {/* <!-- Modal footer --> */}
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-          </div>
-    
-        </div>
-      </div>
-    </div>
 
         </>
     );
