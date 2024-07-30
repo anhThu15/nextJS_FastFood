@@ -247,7 +247,7 @@ router.post('/user/update_user/:id', async function(req, res, next) {
 
 ////////////////////////////////////////////////  brand   ////////////////////////////////////////////////////////////////////////////////
 
-router.get('/brand', async function(req, res, next) {
+router.get('/brandAdmin', async function(req, res, next) {
   var data = await modelBrand.find();  
   res.json(data)
 });

@@ -1,15 +1,5 @@
 "use client";
-import useSWR from "swr";
 import '../../../globals.css'
-import ProductAdmin from "../../components/productAdmin";
-import { useEffect, useRef, useState } from "react";
-
-// xử lý form 
-import * as Yup from 'Yup'
-import { useFormik } from 'formik';
-import { useRouter } from "next/navigation";
-import axios from "axios";
-import { useSelector } from "react-redux";
 
 export default function adminCategoryUpdate(){
   const id = useSelector((state) => state.update)

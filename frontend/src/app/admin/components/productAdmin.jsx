@@ -4,6 +4,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { take } from "@/redux/slices/updateSlice";
+import Link from "next/link";
 
 export default function ProductAdmin(props){
   const dispatch = useDispatch();
@@ -55,7 +56,7 @@ export default function ProductAdmin(props){
                 <td className="text-start">{brandId.name}</td>
                 <td className="text-start">{categoryId.name}</td>
                 <td>
-                  <button type="buton" className="btn btn-warning me-2" onClick={() => updateItem(_id)}><i className="fa-solid fa-pen"></i></button>
+                  <Link className="btn btn-warning me-2" href={`/admin/product/update/${_id}`} ><i className="fa-solid fa-pen"></i></Link>
                   <buton type="buton" className="btn btn-danger" onClick={() => deleteItem(_id)} ><i className="fa-solid fa-trash"></i></buton>
                 </td>
               </tr>
