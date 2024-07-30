@@ -24,7 +24,7 @@ export default function adminProductUpdate({params}){
       setBrands(data);
     };
     const getProductValue = async () => {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/product_detail/${id}`);
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/admins/productAdmin/${id}`);
       const data = res.data;
       setProductValue(data);
       //Du lieu chi tiet san pham show ra form

@@ -29,6 +29,16 @@ router.get('/productAdmin', async function(req, res, next) {
   }
 });
 
+router.get('/productAdmin/:id', async function (req, res, next) {
+  try{
+    var data = await modelProduct.findById(req.params.id)
+    res.json(data)
+
+  }catch(e){
+    res.json({status: 0, message:"không tìm thấy sản phẩm "})
+  }
+})
+
 router.post('/productAdmin/add_product', [upload.single('img')] , async function(req, res, next) {
   try{
     // console.log('Request Body:', req.body);
