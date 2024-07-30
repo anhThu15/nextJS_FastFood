@@ -7,6 +7,7 @@ export default function adminProductUpdate({params}){
   const id = params.id
   const [brands , setBrands] = useState([])
   const [categories , setCategories] = useState([])
+  const [productValue, setProductValue] = useState(null)
   useEffect(() => {
     const getCategories = async () => {
       const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/admins/categoryAdmin`);
@@ -18,9 +19,16 @@ export default function adminProductUpdate({params}){
       const data = res.data;
       setBrands(data);
     };
+    const getProductValue = async () => {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/product_detail/${id}`);
+      const data = res.data;
+      setProductValue(data);
+    };
     getCategories();
     getBrand();
+    getProductValue();
   },[])
+  console.log(productValue);
 
     return (
         <>

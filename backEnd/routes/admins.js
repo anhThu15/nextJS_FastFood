@@ -78,38 +78,30 @@ router.get('/productAdmin/delete_product/:id', async function(req, res, next) {
   }
   // res.json(data)
 });
-router.post('/productAdmin/update_product/:id',  [upload.single('img')] ,async function(req, res, next) {
-  try{
+router.put('/productAdmin/update_product/:id',  [upload.single('img')] ,async function(req, res, next) {
     var {id} = req.params
-    var {name,price,description,type, rating, hot,brandId,categoryId} = req.body;
-    var img = req.file.originalname
-    var productEdit = await modelProduct.findById(id);
+    var {name, price, description, type, rating, hot, brandId, categoryId} = req.body;
+    var productEdit = {name,price,description,type, rating, hot, brandId, categoryId}
+
+    if (req.file) {
+      const img = req.file.originalname;
+      productEdit.img = img; //
+    }
     // res.json(productEdit)
-    if(productEdit != null){
-      productEdit.name  = name ? name: productEdit.name;
-      productEdit.price  = price ? price: productEdit.price;
-      productEdit.img  = img ? img: productEdit.img;
-      productEdit.description  = description ? description: productEdit.description;
-      productEdit.type  = type ? type: productEdit.type;
-      productEdit.rating  = rating ? rating: productEdit.rating;
-      productEdit.hot  = hot ? hot: productEdit.hot;
-      productEdit.brandId  = brandId ? brandId: productEdit.brandId;
-      productEdit.categoryId  = categoryId ? categoryId: productEdit.categoryId;
+    try {
+      const result = await modelProduct.updateOne({ _id: id }, { $set: productEdit });
+      if (result.matchedCount) {
+        res.status(200).json({ message: "Sửa sản phẩm thành công" });
+      } else {
+        res.status(404).json({ message: "Không tìm thấy sản phẩm" });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Có lỗi xảy ra, vui lòng thử lại" });
     }
-    console.log(productEdit);
-
-    var result = await productEdit.save();
-
-    if(result != null){
-      res.json({status: 1, message:"Thành công"});
-      // res.redirect('/admins/product');
-    }else{
-      res.json({status: 0, message:"thất bại"});
-    }
-  }catch(e){
-        res.json({status: 0, message:"chịu lun  "})
-  }
 });
+
+
 
 // test upload ảnh
 router.post('/uploadTextImages', [upload.single('image')],
