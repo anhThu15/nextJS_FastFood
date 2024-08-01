@@ -300,7 +300,7 @@ router.put('/brandAdmin/update_brand/:id', [upload.single('img')], async functio
 
   if(req.file){
     const img = req.file.originalname
-    brandEdit.img =imgs
+    brandEdit.img =img
   }
   
   try{

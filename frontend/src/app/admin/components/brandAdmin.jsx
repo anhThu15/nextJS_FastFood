@@ -9,7 +9,7 @@ import Link from "next/link";
 export default function BrandAdmin(props){
 
   const deleteItem = async (id) => {
-    const data = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/admins/categoryAdmin/delete_category/`+id)
+    const data = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/admins/brandAmin/delete_brand/`+id)
     .then((res) => res.data )
     window.location.reload();
   }
@@ -24,17 +24,22 @@ export default function BrandAdmin(props){
                   <th scope="col">Tên Danh Mục Sản Phẩm </th>
                 </tr>
             </thead>
-            {props.data.map((category,index) => {
-               const {  _id ,name} = category;
+            {props.data.map((brand,index) => {
+               const {  _id ,name, img} = brand;
                
               return (
                 <>
             <tbody className="table-group-divider">
                 <tr>
                   <th scope="row">{index + 1}</th>
-                  <td>{name}</td>
                   <td>
-                    <Link className="btn btn-warning me-2" href={`/admin/category/update/${_id}`}><i className="fa-solid fa-pen"></i></Link>
+                    <div class="text-left">
+                      <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${img}`} width={150} height={150} class="rounded" alt="..."/>
+                      <p class="text-start fw-medium mt-2">{name}</p>
+                    </div>
+                  </td>
+                  <td>
+                    <Link className="btn btn-warning me-2" href={`/admin/brand/update/${_id}`}><i className="fa-solid fa-pen"></i></Link>
                     <buton className="btn btn-danger" onClick={() => deleteItem(_id)} ><i className="fa-solid fa-trash"></i></buton>
                   </td>
                 </tr>

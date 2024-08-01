@@ -59,6 +59,7 @@ export default function adminProductUpdate({params}){
     const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/admins/productAdmin/update_product/${id}`,formData)
     const result = res.data;
     if (!result.error) {
+      alert("thành công ròi đi chữa lành thoy ~~")
       router.push('/admin/product');
     } else {
       // Xử lý hiển thị lỗi

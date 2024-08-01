@@ -93,7 +93,7 @@ const formik = useFormik({
 
   const fetcher = (...args)=>fetch(...args).then((res)=>res.json())
 
-  const {data,error,isLoading} = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/admins/productAdmin?page=4`, fetcher)
+  const {data,error,isLoading} = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/admins/productAdmin?page=3`, fetcher)
 
   if (error) return <div>Lỗi tải dữ liệu</div>
   if (isLoading) return (
