@@ -253,10 +253,19 @@ router.get('/brandAdmin', async function(req, res, next) {
   var data = await modelBrand.find();  
   res.json(data)
 });
-router.post('/brand/add_brand', async function(req, res, next) {
+
+router.get('/brandAdminDetail', async function(req, res, next) {
+  var data = await modelBrand.findById(req.query.id);  
+  res.json(data)
+});
+
+
+router.post('/brandAdmin/add_brand', [upload.single('img')] ,async function(req, res, next) {
   try{
-    var {name,img} = req.body
+    var {name} = req.body
+    var img = req.file.originalname
     var brandAdd = {name,img};
+
     var result = await modelBrand.create(brandAdd);
 
     if(result != null){
@@ -270,7 +279,7 @@ router.post('/brand/add_brand', async function(req, res, next) {
   }
 });
 
-router.get('/brand/delete_brand/:id', async function(req, res, next) {
+router.get('/brandAmin/delete_brand/:id', async function(req, res, next) {
   try{
     var {id} = req.params;
     var result = await modelBrand.findByIdAndDelete(id)
@@ -284,18 +293,18 @@ router.get('/brand/delete_brand/:id', async function(req, res, next) {
   }
 });
 
-router.post('/brand/update_brand/:id', async function(req, res, next) {
-  try{
-    var {id} = req.params
-    var {name, img} = req.body;
-    var brandEdit = await modelBrand.findById(id);
-    console.log(brandEdit);
-    if(brandEdit != null){
-      brandEdit.name  = name ? name: brandEdit.name;
-      brandEdit.img  = img ? img: brandEdit.img;
-    }
+router.put('/brandAdmin/update_brand/:id', [upload.single('img')], async function(req, res, next) {
+  var {id} = req.params
+  var {name} = req.body;
+  var brandEdit = {name};
 
-    var result = await brandEdit.save();
+  if(req.file){
+    const img = req.file.originalname
+    brandEdit.img =imgs
+  }
+  
+  try{
+    const result = await modelBrand.updateOne({ _id: id }, { $set: brandEdit });
 
     if(result != null){
       res.json({status: 1, message:"Thành công"});
