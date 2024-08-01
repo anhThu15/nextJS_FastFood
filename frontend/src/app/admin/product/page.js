@@ -16,12 +16,12 @@ export default function adminProduct(){
   const [brands, setBrand] = useState([]);
   useEffect(() => {
     const getCategories = async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admins/category`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admins/categoryAdmin`);
       const data = await res.json();
       setCategories(data);
     };
     const getBrand = async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admins/brand`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admins/brandAdmin`);
       const data = await res.json();
       setBrand(data);
     };
@@ -93,7 +93,7 @@ const formik = useFormik({
 
   const fetcher = (...args)=>fetch(...args).then((res)=>res.json())
 
-  const {data,error,isLoading}=useSWR(`${process.env.NEXT_PUBLIC_API_URL}/admins/productAdmin?page=4`, fetcher)
+  const {data,error,isLoading} = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/admins/productAdmin?page=4`, fetcher)
 
   if (error) return <div>Lỗi tải dữ liệu</div>
   if (isLoading) return (
@@ -111,6 +111,7 @@ const formik = useFormik({
       </div>
     </>
     );
+    console.log(data);
 
 
 

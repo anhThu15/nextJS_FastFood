@@ -2,25 +2,15 @@
 import FooterAdmin from "@/app/layout/admin/footerAdmin";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
-import { take } from "@/redux/slices/updateSlice";
 import Link from "next/link";
 
 export default function ProductAdmin(props){
-  const dispatch = useDispatch();
-  const router = useRouter()
 
   const deleteItem = async (id) => {
     const data = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/admins/productAdmin/delete_product/`+id)
     .then((res) => res.data )
     window.location.reload();
   }
-
-  const updateItem = async (id) => {
-    dispatch(take(id))
-    router.push('/admin/product/update')
-  }
-
 
     return (
         <>
