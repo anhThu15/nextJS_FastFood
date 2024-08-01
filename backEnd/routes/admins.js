@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var upload = require('../ulity/upload');
 var sendMail = require('../ulity/sendMail');
+const bcrypt = require('bcryptjs');
 
 var modelProduct = require('../models/productModel');
 var modelOrder = require('../models/orderModel');
@@ -192,8 +193,11 @@ router.get('/user/:id', async function(req, res, next) {
 
 router.post('/user/add_user', async function(req, res, next) {
   try{
-    var {name,email,password,permission_user} = req.body
-    var siginAdd = {name,email,password,permission_user};
+    var {name,email, phone ,password,permission_user} = req.body
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(password, salt); 
+    var siginAdd = {name,email,password:hash,phone, permission_user};
+    // res.json(siginAdd)
     var result = await modelUser.create(siginAdd);
 
     if(result != null){
@@ -226,14 +230,19 @@ router.get('/user/delete_user/:id', async function(req, res, next) {
 router.post('/user/update_user/:id', async function(req, res, next) {
   try{
     var {id} = req.params
-    var {name,email,password,permission_user} = req.body;
+    var {name,email,password, phone,permission_user} = req.body;
     var userEdit = await modelUser.findById(id);
     console.log(userEdit);
     if(userEdit != null){
       userEdit.name  = name ? name: userEdit.name;
       userEdit.email  = email ? email: userEdit.email;
-      userEdit.password  = password ? password: userEdit.password;
+      userEdit.phone  = phone ? phone: userEdit.phone;
       userEdit.permission_user  = permission_user ? permission_user: userEdit.permission_user;
+    }
+    if(password){
+      const salt = bcrypt.genSaltSync(10);
+      const hash = bcrypt.hashSync(password, salt); 
+      userEdit.password = hash;
     }
 
     var result = await userEdit.save();

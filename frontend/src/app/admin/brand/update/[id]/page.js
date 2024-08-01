@@ -11,14 +11,14 @@ export default function adminBrandUpdate({params}){
   const router = useRouter();
   const [brand, setBrand] = useState(null);
   useEffect(() =>{
-    const getCategory = async () => {
+    const getBrand = async () => {
        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/admins/brandAdminDetail?id=${id}`)
                               .then((res) => res.data)
        setBrand(res)
        setValue('name', res.name);
       } 
       if(id){
-       getCategory();
+       getBrand();
       }
   },[id, setValue])
   // console.log(idCategory);
