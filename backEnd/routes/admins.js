@@ -185,6 +185,10 @@ router.get('/user', async function(req, res, next) {
   var data = await modelUser.find();
   res.json(data)
 });
+router.get('/user/:id', async function(req, res, next) {
+  var data = await modelUser.findById(req.params.id);
+  res.json(data)
+});
 
 router.post('/user/add_user', async function(req, res, next) {
   try{
