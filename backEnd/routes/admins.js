@@ -135,9 +135,15 @@ router.post('/uploadTextImages', [upload.single('image')],
 ////////////////////////////////////////////////  order   ////////////////////////////////////////////////////////////////////////////////
 
 router.get('/order', async function(req, res, next) {
-  var data = await modelOrder.find();
+  var data = await modelOrder.find().populate('id_user', 'name');
   res.json(data)
 });
+
+router.get('/order/:id', async function(req, res, next) {
+  var data = await modelOrder.findById(req.params.id).populate('id_user', 'name');
+  res.json(data)
+});
+
 
 router.get('/order/delete_order/:id', async function(req, res, next) {
   try{
