@@ -66,6 +66,44 @@ router.post('/sigin', async function(req, res, next) {
 });
 
 
+/// token start
+
+
+//Kiểm tra token qua Bearer
+
+router.get('/checktoken', async (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1];
+  jwt.verify(token, 'secret', (err, user) => {
+    if (err) {
+      return res.status(401).json({ message: "Token không hợp lệ" });
+    }
+    res.status(200).json({ message: "Token hợp lệ" });
+  }
+  );
+}
+);
+
+
+//lấy thông tin chi tiết user qua token
+router.get('/detailuser', async (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1];
+  jwt.verify(token, 'secret', async (err, user) => {
+    if (err) {
+      return res.status(401).json({ message: "Token không hợp lệ" });
+    }
+    const db = await connectDb();
+    const userCollection = db.collection('users');
+    const userInfo = await userCollection.findOne({ email: user.email });
+    if (userInfo) {
+      res.status(200).json(userInfo);
+    } else {
+      res.status(404).json({ message: "Không tìm thấy user" });
+    }
+  });
+});
+
+/// token end
+
 
 
 router.post("/send-mail", async function(req, res, next){
