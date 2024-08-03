@@ -91,15 +91,21 @@ router.get('/detailuser', async (req, res, next) => {
     if (err) {
       return res.status(401).json({ message: "Token không hợp lệ" });
     }
-    const db = await connectDb();
-    const userCollection = db.collection('users');
-    const userInfo = await userCollection.findOne({ email: user.email });
+    // const db = await connectDb();
+    // const userCollection = db.collection('users');
+    const userInfo = await modelUser.findOne({ email: user.email });
     if (userInfo) {
       res.status(200).json(userInfo);
     } else {
       res.status(404).json({ message: "Không tìm thấy user" });
     }
   });
+});
+
+
+router.get('/logout', (req, res) => {
+  res.clearCookie('token', { path: '/' });
+  res.send('Token cookie has been deleted');
 });
 
 /// token end
