@@ -55,7 +55,7 @@ export default function Login() {
     }),
     onSubmit: async (values, { setSubmitting, setFieldError }) => {
         try {
-            const res = await fetch('http://localhost:3000/users/login', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_IMAGE_URL}users/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -122,7 +122,7 @@ export default function Login() {
                         <div className="text-danger">{formik.errors.password}</div>
                     ) : null}
                   </div>
-                <h6 class="text-start mt-3"><Link href="/sigin">Quên Mật Khẩu ?</Link></h6>
+                <h6 class="text-start mt-3"><Link href="/forgot">Quên Mật Khẩu ?</Link></h6>
                   <button type="submit" class="btn btn-warning w-100 rounded-pill mt-3" disabled={formik.isSubmitting} >ĐĂNG NHẬP</button>
                     {formik.errors.general ? (
                       <div className="text-danger mt-2">{formik.errors.general}</div>

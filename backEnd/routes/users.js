@@ -111,6 +111,46 @@ router.get('/logout', (req, res) => {
 /// token end
 
 
+// gửi mail khi quên mật khẩu
+router.post('/forgotPassword', async function(req, res, next){
+  const {email, passwordNew ,to, subject, content} = req.body
+  const user = await modelUser.findOne({ email });
+
+  if (user) {
+    try {
+
+      if(passwordNew){
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(passwordNew, salt); 
+        user.password = hash;
+      }
+      await user.save();
+
+
+      const mailOptions = {
+        from: "anhThune <admin@thunta.com>",
+        to: to,
+        subject: subject,
+        html: content + passwordNew
+      };
+      
+      await sendMail.transporter.sendMail(mailOptions);
+      res.json({ status: 1, message: "Gửi mail thành công"});
+      
+
+    } catch (error) {
+      res.json({ status: 1, message: "gửi k dc ròi"});
+    }
+    
+  }else{
+    return res.status(400).json({ message: "Email không tồn tại" });
+  }
+  
+
+})
+
+
+
 
 router.post("/send-mail", async function(req, res, next){
   try{
