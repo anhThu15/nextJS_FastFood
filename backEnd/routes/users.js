@@ -113,7 +113,7 @@ router.get('/logout', (req, res) => {
 
 // gửi mail khi quên mật khẩu
 router.post('/forgotPassword', async function(req, res, next){
-  const {email, passwordNew ,to, subject, content} = req.body
+  const {email, passwordNew } = req.body
   const user = await modelUser.findOne({ email });
 
   if (user) {
@@ -129,9 +129,9 @@ router.post('/forgotPassword', async function(req, res, next){
 
       const mailOptions = {
         from: "anhThune <admin@thunta.com>",
-        to: to,
-        subject: subject,
-        html: content + passwordNew
+        to: email,
+        subject: 'Đặt Lại Mật Khẩu',
+        html: 'Mật Khẩu Mới là ' + passwordNew
       };
       
       await sendMail.transporter.sendMail(mailOptions);
