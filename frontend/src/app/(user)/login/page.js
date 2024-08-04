@@ -1,4 +1,4 @@
-'use client'
+'use client';
 /* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import "../../globals.css";
@@ -55,7 +55,7 @@ export default function Login() {
     }),
     onSubmit: async (values, { setSubmitting, setFieldError }) => {
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_IMAGE_URL}users/login`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
