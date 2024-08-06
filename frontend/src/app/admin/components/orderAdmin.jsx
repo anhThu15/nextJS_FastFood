@@ -33,12 +33,13 @@ export default function OrderAdmin(props){
             <tbody className="table-group-divider">
                 <tr>
                   <th scope="row">{index + 1}</th>
-                  <td> <Link href={`/admin/order/${_id}`}>{id_user.name}</Link> </td>
+                  <td>{id_user.name}</td>
                   <td>{address}</td>
                   <td>{total}</td>
                   <td>{orderDetail._id}</td>
                   <td>{status}</td>
                   <td>
+                    <Link href={`/admin/order/${_id}`} className="btn btn-warning me-2" ><i class="fa-solid fa-eye"></i></Link>
                     <buton className="btn btn-danger" onClick={() => deleteItem(_id)} ><i className="fa-solid fa-trash"></i></buton>
                   </td>
                 </tr>

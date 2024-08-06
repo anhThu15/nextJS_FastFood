@@ -71,7 +71,7 @@ export default async function Home() {
                   </div>
                 </div>
               </div>
-              <div className="col pt-3" data-aos="flip-up" >
+              {/* <div className="col pt-3" data-aos="flip-up" >
                 <div className="card text-center">
                   <div className="card-body">
                     <table className="table">
@@ -105,8 +105,9 @@ export default async function Home() {
                     </table>
                   </div>
                 </div>
-              </div>
+              </div> */}
               {/* <!--  thêm trc đây  --> */}
+
             </div>
           </div>
     </>                
