@@ -150,6 +150,33 @@ router.post('/forgotPassword', async function(req, res, next){
 })
 
 
+router.post('/changePassword', async function(req, res, next){
+  const {email, passwordNew } = req.body
+  const user = await modelUser.findOne({ email });
+
+  if (user) {
+    try {
+
+      if(passwordNew){
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(passwordNew, salt); 
+        user.password = hash;
+      }
+      await user.save();
+
+      res.json(user)
+
+    } catch (error) {
+      res.json({ status: 1, message: "gửi k dc ròi"});
+    }
+    
+  }else{
+    return res.status(400).json({ message: "Email không tồn tại" });
+  }
+  
+
+})
+
 
 
 router.post("/send-mail", async function(req, res, next){

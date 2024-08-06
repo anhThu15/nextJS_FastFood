@@ -91,6 +91,11 @@ export default function HeaderUser(){
                                       {isLoggedIn ? `hé lô ông già ${user.name}` : "Đăng Nhập"}
                                   </Link>
                                 </li>
+                                <li>
+                                  <Link className="dropdown-item" href={'/info'}>
+                                      {isLoggedIn ? `Xem thông Tin ` : " "}
+                                  </Link>
+                                </li>
                                 <li><hr className="dropdown-divider"/></li>
                                 <li><button className="dropdown-item" onClick={deleteUser}>Đăng Xuất</button></li>
                               </ul>
