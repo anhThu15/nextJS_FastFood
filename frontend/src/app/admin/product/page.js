@@ -93,7 +93,7 @@ const formik = useFormik({
 
   const fetcher = (...args)=>fetch(...args).then((res)=>res.json())
 
-  const {data,error,isLoading} = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/admins/productAdmin?page=3`, fetcher)
+  const {data,error,isLoading} = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/admins/productAdmin`, fetcher)
 
   if (error) return <div>Lỗi tải dữ liệu</div>
   if (isLoading) return (
@@ -123,7 +123,7 @@ const formik = useFormik({
             <div className="row pb-3">
               <h3><strong>Trang Quản Lý Sản Phẩm <button type="submit" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal"><i className="fa-solid fa-plus" style={{color: "#ffffff"}}></i></button></strong></h3>
               <div className="col-md">
-               <ProductAdmin data={data}></ProductAdmin>
+               <ProductAdmin itemsPerPage={5}></ProductAdmin>
               </div>
               {/* <!--  thêm trc đây  --> */}
             </div>

@@ -19,11 +19,7 @@ router.get('/', function(req, res, next) {
 ////////////////////////////////////////////  product   ////////////////////////////////////////////////////////////////////////////////////
 router.get('/productAdmin', async function(req, res, next) {
   try{
-    let page = parseInt(req.query.page) || 1; // Trang mặc định là 1 nếu không có truy vấn
-    let limit = 7; // Số lượng sản phẩm mỗi trang
-    let skip = (page - 1) * limit; // Số sản phẩm cần bỏ qua
-    
-    var data = await modelProduct.find().populate('categoryId', 'name').populate('brandId', 'name').skip(skip).limit(7);
+    var data = await modelProduct.find().populate('categoryId', 'name').populate('brandId', 'name');
     res.json(data);
   }catch(e){
     res.json({status: 0, message:"không tìm thấy sản phẩm "})

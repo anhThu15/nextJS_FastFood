@@ -1,17 +1,16 @@
 'use client'
-import FooterAdmin from "@/app/layout/admin/footerAdmin";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
 
-export default function ProductAdmin(props){
-
+function Render({currentItems}){
   const deleteItem = async (id) => {
     const data = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/admins/productAdmin/delete_product/`+id)
     .then((res) => res.data )
     window.location.reload();
   }
-
     return (
         <>
         <table className="table">
@@ -26,7 +25,7 @@ export default function ProductAdmin(props){
                 <th scope="col">Hành Động</th>
               </tr>
             </thead>
-            {props.data.map((product,index) => {
+            { currentItems && currentItems.map((product,index) => {
                const {  _id ,name, img, description ,price, brandId, categoryId} = product;
                
               return (
@@ -55,7 +54,65 @@ export default function ProductAdmin(props){
               );
             })}
         </table>
-        <FooterAdmin></FooterAdmin>
         </>
     );
+}
+
+export default function ProductAdmin({ itemsPerPage }){
+
+  const [currentItems, setCurrentItems] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    // Gọi API để lấy dữ liệu
+    const fetchData = async () => {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admins/productAdmin`);
+      const data = await res.json();
+      setItems(data); // Cập nhật state `items` với dữ liệu từ API
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+    setCurrentItems(items.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(items.length / itemsPerPage));
+  }, [itemOffset, items, itemsPerPage]);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % items.length;
+    setItemOffset(newOffset);
+  };
+
+  return (
+    <>
+      <Render currentItems={currentItems} />
+      <ReactPaginate
+        nextLabel="next >"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={3}
+        marginPagesDisplayed={2}
+        pageCount={pageCount}
+        previousLabel="< previous"
+        pageClassName="btn btn-outline-warning"
+        pageLinkClassName="page-link"
+        previousClassName="btn btn-outline-warning"
+        previousLinkClassName="page-link"
+        nextClassName="btn btn-outline-warning"
+        nextLinkClassName="page-link"
+        breakLabel="..."
+        breakClassName="btn btn-outline-warning"
+        breakLinkClassName="page-link"
+        containerClassName="btn-group"
+        activeClassName="active"
+        renderOnZeroPageCount={null}
+      />
+    </>
+  );
+
+
+
 }
