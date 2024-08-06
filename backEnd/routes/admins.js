@@ -135,6 +135,12 @@ router.get('/order', async function(req, res, next) {
   res.json(data)
 });
 
+router.get('/orderSort', async function(req, res, next) {
+  var data = await modelOrder.find().populate('id_user', 'name').sort({ day: -1 }).limit(2);
+  res.json(data)
+});
+
+
 router.get('/order/:id', async function(req, res, next) {
   var data = await modelOrder.findById(req.params.id).populate('id_user', 'name');
   res.json(data)

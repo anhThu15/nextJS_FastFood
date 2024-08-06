@@ -22,6 +22,10 @@ const goiMon = new Schema({
         type: Number,
         required: true
     },
+    day: { 
+        type: Date, 
+        default: Date.now 
+    },
     id_user: {
         type: ObjectId,
         ref:'user', 

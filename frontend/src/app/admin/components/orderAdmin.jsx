@@ -20,13 +20,13 @@ export default function OrderAdmin(props){
                   <th scope="col">Tên Khách Đặt Hàng </th>
                   <th scope="col">Địa Chỉ Khách Đặt Hàng </th>
                   <th scope="col">Tổng Tiền Khách Đặt Hàng </th>
-                  <th scope="col">Chi Tiết Đơn Khách Đặt Hàng </th>
+                  <th scope="col">Ngày Lên Đơn Khách Đặt Hàng </th>
                   <th scope="col">Trạng Thái Đơn Khách Đặt Hàng </th>
                   <th scope="col"></th>
                 </tr>
             </thead>
             {props.data.map((order,index) => {
-               const {  _id , address, status, total, id_user ,orderDetail} = order;
+               const {  _id , address, status, total, id_user ,orderDetail, day} = order;
                
               return (
                 <>
@@ -36,7 +36,7 @@ export default function OrderAdmin(props){
                   <td>{id_user.name}</td>
                   <td>{address}</td>
                   <td>{total}</td>
-                  <td>{orderDetail._id}</td>
+                  <td>{day}</td>
                   <td>{status}</td>
                   <td>
                     <Link href={`/admin/order/${_id}`} className="btn btn-warning me-2" ><i class="fa-solid fa-eye"></i></Link>

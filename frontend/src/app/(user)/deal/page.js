@@ -58,11 +58,12 @@ export default function Deal() {
       const data = {
         id_user: id_userRef.current.value,
         address: addressRef.current.value,
+        day : new Date().toLocaleString('en-US'),
         total : total,
         orderDetail:[arrSP]
       }
 
-      console.log(arrSP);
+      console.log(data);
 
       const orderData = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/orders/add_orders`,data)
       console.log(orderData);
