@@ -11,7 +11,7 @@ export default function range(params) {
   const y = Number( params.searchParams.y)
 
   const {data:products,error,isLoading} = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/products/range/`+ x + '/' + y , fetcher)
-  const {data:categorys,error:cateError,isLoading:cateLoad} = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/admins/category`, fetcher)
+  const {data:categorys,error:cateError,isLoading:cateLoad} = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/admins/categoryAdmin`, fetcher)
 
   if (error || cateError) return <div>Lỗi tải dữ liệu</div>
   if (isLoading || cateLoad) return (

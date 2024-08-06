@@ -12,7 +12,7 @@ export default function Products() {
 
   useEffect(() => {
     async function fetchProducts() {
-      const brand = await axios.get('http://localhost:3000/admins/brand',{ revalidate: 3600 }).then((res)=>res.data);
+      const brand = await axios.get('http://localhost:3000/admins/brandAdmin',{ revalidate: 3600 }).then((res)=>res.data);
       const productsData = await Promise.all(
         brand.map(async (br) => {
           const products = await axios.get(`http://localhost:3000/products/food/${br._id}`,{ revalidate: 3600 }).then((res) => res.data);
@@ -23,7 +23,7 @@ export default function Products() {
     }
     
     async function fetchCategorys() {
-      const res = await axios.get('http://localhost:3000/admins/category',{ revalidate: 3600 }).then((res)=>res.data)
+      const res = await axios.get('http://localhost:3000/admins/categoryAdmin',{ revalidate: 3600 }).then((res)=>res.data)
       setCategorys(res);
     }
     fetchProducts();

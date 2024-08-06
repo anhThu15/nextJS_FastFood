@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var upload = require('../ulity/upload');
 var sendMail = require('../ulity/sendMail');
+const bcrypt = require('bcryptjs');
 
 var modelProduct = require('../models/productModel');
 var modelOrder = require('../models/orderModel');
@@ -16,29 +17,44 @@ router.get('/', function(req, res, next) {
 
 
 ////////////////////////////////////////////  product   ////////////////////////////////////////////////////////////////////////////////////
-router.get('/product', async function(req, res, next) {
+router.get('/productAdmin', async function(req, res, next) {
   try{
-    var data = await modelProduct.find();
+    var data = await modelProduct.find().populate('categoryId', 'name').populate('brandId', 'name');
     res.json(data);
   }catch(e){
     res.json({status: 0, message:"không tìm thấy sản phẩm "})
   }
-  res.json(data)
 });
 
-router.post('/product/add_product', async function(req, res, next) {
+router.get('/productAdmin/:id', async function (req, res, next) {
   try{
-    console.log(req.body);
-    var {name,price,img,description,type,brandId,categoryId} = req.body;
+    var data = await modelProduct.findById(req.params.id)
+    res.json(data)
+
+  }catch(e){
+    res.json({status: 0, message:"không tìm thấy sản phẩm "})
+  }
+})
+
+router.post('/productAdmin/add_product', [upload.single('img')] , async function(req, res, next) {
+  try{
+    // console.log('Request Body:', req.body);
+    // console.log('Request File:', req.file);
+    // console.log(req.body);
+    var {name,price,description,brandId,categoryId} = req.body;
+    var img = req.file.originalname
     var productAdd = {
       name,
       price: Number(price),
       img,
       description,
-      type,
+      type: 'food',
+      rating: 1,
+      hot: false,
       brandId,
       categoryId
     };
+    // console.log(productAdd);
     var result = await modelProduct.create(productAdd);
 
     // console.log(productAdd);
@@ -50,11 +66,10 @@ router.post('/product/add_product', async function(req, res, next) {
     }
   }catch(e){
         res.json({status: 0, message:"chịu lun  "})
-        // console.log(e);
   }
 });
 
-router.get('/product/delete_product/:id', async function(req, res, next) {
+router.get('/productAdmin/delete_product/:id', async function(req, res, next) {
   try{
     var {id} = req.params;
     var result = await modelProduct.findByIdAndDelete(id)
@@ -70,35 +85,30 @@ router.get('/product/delete_product/:id', async function(req, res, next) {
   }
   // res.json(data)
 });
-router.post('/product/update_product/:id', async function(req, res, next) {
-  try{
+router.put('/productAdmin/update_product/:id',  [upload.single('img')] ,async function(req, res, next) {
     var {id} = req.params
-    var {name,price,img,description,type,brandId,categoryId} = req.body;
-    var productEdit = await modelProduct.findById(id);
-    if(productEdit != null){
-      productEdit.name  = name ? name: productEdit.name;
-      productEdit.price  = price ? price: productEdit.price;
-      productEdit.img  = img ? img: productEdit.img;
-      productEdit.description  = description ? description: productEdit.description;
-      productEdit.type  = type ? type: productEdit.type;
-      productEdit.brandId  = brandId ? brandId: productEdit.brandId;
-      productEdit.categoryId  = categoryId ? categoryId: productEdit.categoryId;
-    }
-    // console.log(productEdit);
+    var {name, price, description, type, rating, hot, brandId, categoryId} = req.body;
+    var productEdit = {name,price,description,type, rating, hot, brandId, categoryId}
 
-    var result = await productEdit.save();
-
-    if(result != null){
-      res.json({status: 1, message:"Thành công"});
-      // res.redirect('/admins/product');
-    }else{
-      res.json({status: 0, message:"thất bại"});
+    if (req.file) {
+      const img = req.file.originalname;
+      productEdit.img = img; //
     }
-  }catch(e){
-        res.json({status: 0, message:"chịu lun  "})
-        // console.log(e);
-  }
+    // res.json(productEdit)
+    try {
+      const result = await modelProduct.updateOne({ _id: id }, { $set: productEdit });
+      if (result.matchedCount) {
+        res.status(200).json({ message: "Sửa sản phẩm thành công" });
+      } else {
+        res.status(404).json({ message: "Không tìm thấy sản phẩm" });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Có lỗi xảy ra, vui lòng thử lại" });
+    }
 });
+
+
 
 // test upload ảnh
 router.post('/uploadTextImages', [upload.single('image')],
@@ -121,9 +131,21 @@ router.post('/uploadTextImages', [upload.single('image')],
 ////////////////////////////////////////////////  order   ////////////////////////////////////////////////////////////////////////////////
 
 router.get('/order', async function(req, res, next) {
-  var data = await modelOrder.find();
+  var data = await modelOrder.find().populate('id_user', 'name');
   res.json(data)
 });
+
+router.get('/orderSort', async function(req, res, next) {
+  var data = await modelOrder.find().populate('id_user', 'name').sort({ day: -1 }).limit(2);
+  res.json(data)
+});
+
+
+router.get('/order/:id', async function(req, res, next) {
+  var data = await modelOrder.findById(req.params.id).populate('id_user', 'name');
+  res.json(data)
+});
+
 
 router.get('/order/delete_order/:id', async function(req, res, next) {
   try{
@@ -172,11 +194,18 @@ router.get('/user', async function(req, res, next) {
   var data = await modelUser.find();
   res.json(data)
 });
+router.get('/user/:id', async function(req, res, next) {
+  var data = await modelUser.findById(req.params.id);
+  res.json(data)
+});
 
 router.post('/user/add_user', async function(req, res, next) {
   try{
-    var {name,email,password,permission_user} = req.body
-    var siginAdd = {name,email,password,permission_user};
+    var {name,email, phone ,password,permission_user} = req.body
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(password, salt); 
+    var siginAdd = {name,email,password:hash,phone, permission_user};
+    // res.json(siginAdd)
     var result = await modelUser.create(siginAdd);
 
     if(result != null){
@@ -209,14 +238,19 @@ router.get('/user/delete_user/:id', async function(req, res, next) {
 router.post('/user/update_user/:id', async function(req, res, next) {
   try{
     var {id} = req.params
-    var {name,email,password,permission_user} = req.body;
+    var {name,email,password, phone,permission_user} = req.body;
     var userEdit = await modelUser.findById(id);
     console.log(userEdit);
     if(userEdit != null){
       userEdit.name  = name ? name: userEdit.name;
       userEdit.email  = email ? email: userEdit.email;
-      userEdit.password  = password ? password: userEdit.password;
+      userEdit.phone  = phone ? phone: userEdit.phone;
       userEdit.permission_user  = permission_user ? permission_user: userEdit.permission_user;
+    }
+    if(password){
+      const salt = bcrypt.genSaltSync(10);
+      const hash = bcrypt.hashSync(password, salt); 
+      userEdit.password = hash;
     }
 
     var result = await userEdit.save();
@@ -236,14 +270,23 @@ router.post('/user/update_user/:id', async function(req, res, next) {
 
 ////////////////////////////////////////////////  brand   ////////////////////////////////////////////////////////////////////////////////
 
-router.get('/brand', async function(req, res, next) {
+router.get('/brandAdmin', async function(req, res, next) {
   var data = await modelBrand.find();  
   res.json(data)
 });
-router.post('/brand/add_brand', async function(req, res, next) {
+
+router.get('/brandAdminDetail', async function(req, res, next) {
+  var data = await modelBrand.findById(req.query.id);  
+  res.json(data)
+});
+
+
+router.post('/brandAdmin/add_brand', [upload.single('img')] ,async function(req, res, next) {
   try{
-    var {name,img} = req.body
+    var {name} = req.body
+    var img = req.file.originalname
     var brandAdd = {name,img};
+
     var result = await modelBrand.create(brandAdd);
 
     if(result != null){
@@ -257,7 +300,7 @@ router.post('/brand/add_brand', async function(req, res, next) {
   }
 });
 
-router.get('/brand/delete_brand/:id', async function(req, res, next) {
+router.get('/brandAmin/delete_brand/:id', async function(req, res, next) {
   try{
     var {id} = req.params;
     var result = await modelBrand.findByIdAndDelete(id)
@@ -271,18 +314,18 @@ router.get('/brand/delete_brand/:id', async function(req, res, next) {
   }
 });
 
-router.post('/brand/update_brand/:id', async function(req, res, next) {
-  try{
-    var {id} = req.params
-    var {name, img} = req.body;
-    var brandEdit = await modelBrand.findById(id);
-    console.log(brandEdit);
-    if(brandEdit != null){
-      brandEdit.name  = name ? name: brandEdit.name;
-      brandEdit.img  = img ? img: brandEdit.img;
-    }
+router.put('/brandAdmin/update_brand/:id', [upload.single('img')], async function(req, res, next) {
+  var {id} = req.params
+  var {name} = req.body;
+  var brandEdit = {name};
 
-    var result = await brandEdit.save();
+  if(req.file){
+    const img = req.file.originalname
+    brandEdit.img =img
+  }
+  
+  try{
+    const result = await modelBrand.updateOne({ _id: id }, { $set: brandEdit });
 
     if(result != null){
       res.json({status: 1, message:"Thành công"});
@@ -300,11 +343,16 @@ router.post('/brand/update_brand/:id', async function(req, res, next) {
 //////////////////////////////////////////   category  //////////////////////////////////////////////////////////////////////////////////////
 
 
-router.get('/category', async function(req, res, next) {
+router.get('/categoryAdmin', async function(req, res, next) {
   var data = await modelCategory.find();
   res.json(data)
 });
-router.post('/category/add_category', async function(req, res, next) {
+router.get('/categoryAdmin/:id', async function(req, res, next) {
+  var data = await modelCategory.findById(req.params.id);
+  res.json(data)
+});
+
+router.post('/categoryAdmin/add_category', async function(req, res, next) {
   try{
     var {name} = req.body
     var categoryAdd = {name};
@@ -321,7 +369,7 @@ router.post('/category/add_category', async function(req, res, next) {
   }
 });
 
-router.get('/category/delete_category/:id', async function(req, res, next) {
+router.get('/categoryAdmin/delete_category/:id', async function(req, res, next) {
   try{
     var {id} = req.params;
     var result = await modelCategory.findByIdAndDelete(id)
@@ -335,24 +383,26 @@ router.get('/category/delete_category/:id', async function(req, res, next) {
   }
 });
 
-router.post('/category/update_category/:id', async function(req, res, next) {
+router.post('/categoryAdmin/update_category/:id', async function(req, res, next) {
   try{
     var {id} = req.params
-    var {name} = req.body;
     var categoryEdit = await modelCategory.findById(id);
-    console.log(categoryEdit);
-    if(categoryEdit != null){
+    var {name} = req.body;
+
+    if(name != null){
       categoryEdit.name  = name ? name: categoryEdit.name;
+
+      var result = await categoryEdit.save();
+      
+      if(result != null){
+        res.json({status: 1, message:"Thành công", data:result});
+        // res.redirect('/admins/product');
+      }else{
+        res.json({status: 0, message:"thất bại"});
+      }
     }
 
-    var result = await categoryEdit.save();
 
-    if(result != null){
-      res.json({status: 1, message:"Thành công"});
-      // res.redirect('/admins/product');
-    }else{
-      res.json({status: 0, message:"thất bại"});
-    }
   }catch(e){
         res.json({status: 0, message:"chịu lun  "})
         // console.log(e);

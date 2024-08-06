@@ -13,7 +13,7 @@ export default function SearchProducts(params) {
 
   useEffect(() => {
     async function fetchCategorys() {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/admins/category`,{ revalidate: 3600 }).then((res)=>res.data)
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/admins/categoryAdmin`,{ revalidate: 3600 }).then((res)=>res.data)
       setCategorys(res);
     }
     async function fetchProducts() {

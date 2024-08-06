@@ -1,10 +1,37 @@
+'use client'
 /* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import "../globals.css";
 import axios from "axios";
 import Link from "next/link";
+import Table from "./components/chart";
+import Table2 from "./components/chart2";
+import OrderAdmin from "./components/orderAdmin";
+import useSWR from "swr";
 
-export default async function Home() {
+export default  function  Home() {
+
+  const fetcher = (...args)=>fetch(...args).then((res)=>res.json())
+  
+  const {data,error,isLoading} = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/admins/orderSort`, fetcher)
+  
+  if (error) return <div>Lỗi tải dữ liệu</div>
+  if (isLoading) return (
+    <>
+     <div className="loader">
+        <div className="bar1"></div>
+        <div className="bar2"></div>
+        <div className="bar3"></div>
+        <div className="bar4"></div>
+        <div className="bar5"></div>
+        <div className="bar6"></div>
+        <div className="bar7"></div>
+        <div className="bar8"></div>
+        <div className="bar9"></div>
+      </div>
+    </>
+    );
+
   return (
     <>
           {/* <!--  hết meu đầu  --> */}
@@ -51,62 +78,29 @@ export default async function Home() {
                   </div>
                 </div>
               </div>
+
               <div className="col-md-6 pt-3"  data-aos="fade-up-right" data-aos-duration="3000">
-                <div className="card text-center">
-                  <div className="card-header">
-                    <b>Tổng Đơn Hàng</b> 
-                  </div>
+                <div className="card text-center ">
                   <div className="card-body">
-                    <div id="myChart" style={{maxWidth: '100%', height:'400px'}}></div>
+                  <Table></Table>
                   </div>
                 </div>
+                <OrderAdmin data={data}></OrderAdmin>
               </div>
+
               <div className="col-md-6 pt-3"  data-aos="fade-up-left" data-aos-duration="3000">
                 <div className="card text-center">
                   <div className="card-header">
-                    <b>Số Khách Mua Hàng</b>
+                    <b>Thông Tin Tổng Quan</b>
                   </div>
                   <div className="card-body">
-                    <div id="myChart2" style={{maxWidth: '100%', height:'400px'}}></div>
+                        <Table2></Table2>
                   </div>
                 </div>
               </div>
-              <div className="col pt-3" data-aos="flip-up" >
-                <div className="card text-center">
-                  <div className="card-body">
-                    <table className="table">
-                      <thead>
-                        <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">Tên Sản Phẩm</th>
-                          <th scope="col">Giá Sản Phẩm</th>
-                          <th scope="col"></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>@mdo</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td>@fat</td>
-                        </tr>
-                        <tr>
-                          <th scope="row"></th>
-                          <td colspan="2"></td>
-                          <td><a href="#" className="btn ">Xem thêm  </a></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+
               {/* <!--  thêm trc đây  --> */}
+
             </div>
           </div>
     </>                

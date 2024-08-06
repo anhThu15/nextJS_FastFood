@@ -2,8 +2,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import "../../globals.css";
 import Link from "next/link";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { logout } from "@/redux/slices/userSlice";
+import { useRouter } from "next/navigation";
 
 export const metadata = {
   title: 'AsianFood',
@@ -11,8 +12,47 @@ export const metadata = {
 }
 
 export default function HeaderUser(){
-  const user = useSelector((state) => state.user )
-  const dispatch = useDispatch();
+  // const user = useSelector((state) => state.user )
+  // const dispatch = useDispatch();
+  const router = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    const token = document.cookie.split(';').find((c) => c.trim().startsWith('token='));
+    if (token) {
+        setIsLoggedIn(true);
+    }
+
+    const getUser = async () => {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/detailuser`, {
+          headers: {
+              Authorization: `Bearer ${token?.split('=')[1]}`,
+          },
+      });
+      const data = await res.json();
+      setUser(data);
+  };
+    
+  getUser();
+  }, []);
+
+  const deleteUser = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/logout`,
+      {
+        method: 'GET',
+        credentials: 'include', // Đảm bảo gửi cookie cùng với yêu cầu
+      }
+    )
+    const data = await res.json();
+    if(data){
+      router.push('/login')
+    }else{
+      alert('lỗi ')
+    }
+  }
+
+
+
     return (
         <>
         <title>{metadata.title}</title>
@@ -45,20 +85,25 @@ export default function HeaderUser(){
                               <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                               <i className="fa-regular fa-user"></i> 
                               </button>
-                              <ul class="dropdown-menu">
-                                <li><Link class="dropdown-item" href="/login">{user ?'Chao Xìn '+user.data.data.name:"Đăng Nhập"} </Link></li>
-                                <li><hr class="dropdown-divider"/></li>
-                                <li><button class="dropdown-item" onClick={ () => dispatch(logout(user))} href="#">Đăng Xuất</button></li>
+                              <ul className="dropdown-menu">
+                                <li>
+                                  <Link className="dropdown-item" href={isLoggedIn ? '/' : '/login'}>
+                                      {isLoggedIn ? `hé lô ông già ${user.name}` : "Đăng Nhập"}
+                                  </Link>
+                                </li>
+                                <li>
+                                  <Link className="dropdown-item" href={'/info'}>
+                                      {isLoggedIn ? `Xem thông Tin ` : " "}
+                                  </Link>
+                                </li>
+                                <li><hr className="dropdown-divider"/></li>
+                                <li><button className="dropdown-item" onClick={deleteUser}>Đăng Xuất</button></li>
                               </ul>
                             </div>
                         </li>
-                      {user && (
-                        <React.Fragment>
                         <li className="nav-item ">
                           <Link className="nav-link btn btn-outline-dark" href="/cart"><i className="fa-solid fa-cart-shopping"></i></Link>
                         </li>
-                        </React.Fragment>
-                      )}
                         <li>
                           <button className="btn btn-outline-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </li>

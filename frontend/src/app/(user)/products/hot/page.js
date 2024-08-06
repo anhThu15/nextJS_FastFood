@@ -9,7 +9,7 @@ export default function hot(params) {
   const fetcher = (...args)=>fetch(...args).then((res)=>res.json())
 
   const {data:products,error,isLoading} = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/products/hot`, fetcher)
-  const {data:categorys,error:cateError,isLoading:cateLoad} = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/admins/category`, fetcher)
+  const {data:categorys,error:cateError,isLoading:cateLoad} = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/admins/categoryAdmin`, fetcher)
 
   if (error || cateError) return <div>Lỗi tải dữ liệu</div>
   if (isLoading || cateLoad) return (

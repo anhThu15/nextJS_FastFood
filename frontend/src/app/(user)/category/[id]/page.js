@@ -16,7 +16,7 @@ export default function ProductsByCate({ params}) {
       refreshInterval: 6000,
     }
   );
-  const { data: categories, error: categoriesError, isLoading: categoriesLoading } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/admins/category`, fetcher, 
+  const { data: categories, error: categoriesError, isLoading: categoriesLoading } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/admins/categoryAdmin`, fetcher, 
     {
     refreshInterval: 6000,
   });

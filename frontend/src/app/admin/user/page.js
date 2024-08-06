@@ -1,33 +1,61 @@
+'use client'
+import useSWR from "swr";
+import UserAdmin from "../components/userAdmin";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+
 export default function adminUser(){
+  const router = useRouter();
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+  const fetcher = (...args)=>fetch(...args).then((res)=>res.json())
+  
+  const {data,error,isLoading} = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/admins/user`, fetcher)
+  
+  if (error) return <div>Lỗi tải dữ liệu</div>
+  if (isLoading) return (
+    <>
+     <div className="loader">
+        <div className="bar1"></div>
+        <div className="bar2"></div>
+        <div className="bar3"></div>
+        <div className="bar4"></div>
+        <div className="bar5"></div>
+        <div className="bar6"></div>
+        <div className="bar7"></div>
+        <div className="bar8"></div>
+        <div className="bar9"></div>
+      </div>
+    </>
+    );
+
+    // xử lý form
+    const onSubmit = async (data) => {
+      try {
+        // console.log(data);
+          const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/admins/user/add_user`,data)
+                  .then((res)=>res.data)
+          if (res) {
+          alert('thành công ròi đi chữa lãnh hoy ~~~')
+          router.push('/admin/user');
+          } else {
+          // Xử lý hiển thị lỗi
+          console.error(result.error);
+          }
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+
     return (
         <>
         <div className="container-fluid">
             <div className="row pb-3">
               <h3><strong>Trang Quản Lý Khách Hàng <button type="submit" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal"><i className="fa-solid fa-plus" style={{color: "#ffffff"}}></i></button></strong></h3>
               <div className="col-md">
-                <table className="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Tên & Ảnh Sản Phẩm </th>
-                      <th scope="col">Giá Sản Phẩm</th>
-                      <th scope="col">Mô Tả Sản Phẩm</th>
-                      <th scope="col">Hành Động</th>
-                    </tr>
-                  </thead>
-                  <tbody className="table-group-divider">
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>Mark</td>
-                      <td>Otto</td>
-                      <td>@mdo</td>
-                      <td>
-                        <button className="btn btn-warning me-2"><i className="fa-solid fa-pen"></i></button>
-                        <buton className="btn btn-danger"><i className="fa-solid fa-trash"></i></buton>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <UserAdmin data={data}></UserAdmin>
               </div>
               {/* <!--  thêm trc đây  --> */}
             </div>
@@ -40,28 +68,40 @@ export default function adminUser(){
     
           {/* <!-- Modal Header --> */}
           <div class="modal-header">
-            <h4 class="modal-title">Thêm Sản Phẩm</h4>
+            <h4 class="modal-title">Thêm Khách Hàng</h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
     
           {/* <!-- Modal body --> */}
           <div class="modal-body">
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Tên Sản Phẩm</label>
-                <input type="text" class="form-control" />
+                <label for="exampleInputEmail1" class="form-label">Tên Khách Hàng</label>
+                <input type="text" class="form-control" {...register('name', { required: 'Tên Khách hàng là bắt buộc' })} />
+                {errors.name && <div className="text-danger">{errors.name.message}</div>}
               </div>
               <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Giá Sản Phẩm</label>
-                <input type="number" class="form-control" />
+                <label for="exampleInputPassword1" class="form-label">Email Khách Hàng</label>
+                <input type="email" class="form-control" {...register('email', { required: 'Email Khách hàng là bắt buộc' })} />
+                {errors.email && <div className="text-danger">{errors.email.message}</div>}
               </div>
               <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Mô Tả Sản Phẩm</label>
-                <input type="text" class="form-control" />
+                <label for="exampleInputPassword1" class="form-label">Số Điện Thoại Khách Hàng</label>
+                <input type="number" class="form-control" {...register('phone', { required: 'Số Điện Thoại Khách hàng là bắt buộc' })} />
+                {errors.phone && <div className="text-danger">{errors.phone.message}</div>}
               </div>
               <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Ảnh Sản Phẩm</label>
-                <input type="text" class="form-control" />
+                <label for="exampleInputPassword1" class="form-label" >Mật Khẩu Khách Hàng</label>
+                <input type="password" class="form-control" {...register('password', { required: 'Mật Khẩu Khách hàng là bắt buộc' })} />
+                {errors.password && <div className="text-danger">{errors.password.message}</div>}
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Quyền Khách Hàng</label>
+                <select class="form-control"  {...register('permission_user', { required: 'Quyền Khách hàng là bắt buộc' })}  >
+                  <option value={'user'}>Người Dùng</option>
+                  <option value={'admin'}>Chủ</option>
+                </select>
+                {errors.permission_user && <div className="text-danger">{errors.permission_user.message}</div>}
               </div>
               <button type="submit" class="btn btn-warning">Gửi</button>
             </form>

@@ -4,13 +4,13 @@ import Image from "next/image";
 import "../../globals.css";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
 export default function Deal() {
   const router = useRouter();
-  const user = useSelector((state) => state.user )
+  // const user = useSelector((state) => state.user )
   const cartItems = useSelector((state) => state.cart?.items) || [];
   const total = useMemo(() => cartItems.reduce((total, item) => total + item.price * item.quantity, 0), [cartItems]);
 
@@ -19,6 +19,28 @@ export default function Deal() {
   const nameRef = useRef([])
   const priceRef = useRef([])
   const quantityRef = useRef([])
+
+  const token = document.cookie.split(';').find((c) => c.trim().startsWith('token='));
+  const tokenValue = token?.split('=')[1];
+  if (!tokenValue) {
+      console.log(tokenValue);
+      
+  }
+  const [user, setUser] = useState({});
+  useEffect(() => {
+      const getUser = async () => {
+          const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/detailuser`, {
+              headers: {
+                  Authorization: `Bearer ${tokenValue}`,
+              },
+          });
+          const data = await res.json();
+          setUser(data);
+      };
+      getUser();
+  }, [tokenValue]);
+  
+
 
 
   const handleOrder = async (e) =>{
@@ -36,11 +58,12 @@ export default function Deal() {
       const data = {
         id_user: id_userRef.current.value,
         address: addressRef.current.value,
+        day : new Date().toLocaleString('en-US'),
         total : total,
         orderDetail:[arrSP]
       }
 
-      console.log(arrSP);
+      console.log(data);
 
       const orderData = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/orders/add_orders`,data)
       console.log(orderData);
@@ -73,13 +96,13 @@ export default function Deal() {
             <h4 class="ps-2" >THÊM THÔNG TIN CHI TIẾT:</h4>
             <form action="">
               <div class="mb-3">
-                <p class="form-control">{user.data.data.name}</p>
+                <p class="form-control">{user.name}</p>
               </div>
               <div class="mb-3">
-                <p class="form-control">{user.data.data.phone}</p>
+                <p class="form-control">0{user.phone}</p>
               </div>
               <div class="mb-3">
-                <p class="form-control">{user.data.data.email}</p>
+                <p class="form-control">{user.email}</p>
               </div>
             </form>
            </div>
@@ -88,7 +111,7 @@ export default function Deal() {
               <form action="" onSubmit={handleOrder}>
                 <div class="mb-3">
                   <input type="text" placeholder="địa chỉ" ref={addressRef} class="form-control"></input>
-                  <input type="hidden" placeholder="địa chỉ" ref={id_userRef} value={user.data.data._id} class="form-control"></input>
+                  <input type="hidden" placeholder="địa chỉ" ref={id_userRef} value={user._id} class="form-control"></input>
                   {/* danh sách cart */}
                   {cartItems.map((e) =>{
                   return (

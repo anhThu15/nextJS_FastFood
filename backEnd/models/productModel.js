@@ -23,6 +23,14 @@ const sanPham = new Schema({
         type: String,
         required: true
     },
+    rating:{
+        type: Number,
+        required: true
+    },
+    hot:{
+        type:Boolean,
+        required:true
+    },
     brandId: {
         type: ObjectId,
         ref:'brand',
