@@ -1,0 +1,360 @@
+[{
+  "_id": {
+    "$oid": "667d0d0a9c57a021a406e0d5"
+  },
+  "name": "Bánh Cuốn",
+  "price": 15000,
+  "img": "banhcuon.webp",
+  "type": "food",
+  "brandId": {
+    "$oid": "660bb62cc6047aa2e00deb56"
+  },
+  "categoryId": {
+    "$oid": "6600ea9b5936faf9c09d4623"
+  },
+  "description": "\"Bánh cuốn là một món ăn truyền thống của Việt Nam, phổ biến trong bữa sáng. Bánh cuốn được làm từ bột gạo, hấp trên một lớp vải căng trên miệng nồi nước sôi, tạo thành lớp bánh mỏng và mềm. Bên trong bánh thường có nhân thịt lợn băm, mộc nhĩ, hành phi, và tôm khô. Bánh cuốn được ăn kèm với nước chấm pha từ nước mắm, đường, giấm, tỏi, và ớt. Một số nơi còn thêm chả lụa, dưa leo, và rau sống để tăng thêm hương vị. Món ăn này không chỉ ngon miệng mà còn rất thanh đạm và bổ dưỡng.",
+  "rating": 1,
+  "hot": false
+},
+{
+  "_id": {
+    "$oid": "668678cbb97721e2bdfaf876"
+  },
+  "name": "Bánh mì",
+  "price": 15000,
+  "img": "banhmi.webp",
+  "description": " Là một loại bánh mì kẹp nổi tiếng của Việt Nam, thường có nhân gồm thịt nướng, chả lụa, pate, dưa leo, rau mùi, đồ chua và các loại gia vị như nước sốt, ớt.",
+  "type": "food",
+  "brandId": {
+    "$oid": "660bb62cc6047aa2e00deb56"
+  },
+  "categoryId": {
+    "$oid": "6600ea9b5936faf9c09d4623"
+  },
+  "__v": 0,
+  "rating": 3,
+  "hot": true
+},
+{
+  "_id": {
+    "$oid": "6686791eb97721e2bdfaf878"
+  },
+  "name": "Bánh tai giạc",
+  "price": 13000,
+  "img": "banhtaigiac.webp",
+  "description": " Là loại bánh ngọt có hình dáng giống như tai heo, được làm từ bột nếp, đường, nước cốt dừa và chiên giòn.",
+  "type": "food",
+  "brandId": {
+    "$oid": "660bb62cc6047aa2e00deb56"
+  },
+  "categoryId": {
+    "$oid": "668677b28994155b8d886956"
+  },
+  "__v": 0,
+  "rating": 5,
+  "hot": true
+},
+{
+  "_id": {
+    "$oid": "66867972b97721e2bdfaf87a"
+  },
+  "name": "Bánh xèo",
+  "price": 13000,
+  "img": "banhxeo.webp",
+  "description": "Là món bánh chiên mỏng, giòn, làm từ bột gạo, nghệ, nước cốt dừa, bên trong có tôm, thịt, giá đỗ và hành lá. Bánh xèo thường được cuốn với rau sống và chấm nước mắm pha.",
+  "type": "food",
+  "brandId": {
+    "$oid": "660bb62cc6047aa2e00deb56"
+  },
+  "categoryId": {
+    "$oid": "668677b28994155b8d886956"
+  },
+  "__v": 0,
+  "rating": 3,
+  "hot": true
+},
+{
+  "_id": {
+    "$oid": "668679aab97721e2bdfaf87c"
+  },
+  "name": "Bún bò Huế",
+  "price": 40000,
+  "img": "bunbohue.jpg",
+  "description": "Là món bún đặc sản của Huế, với nước dùng từ xương bò, sả, mắm ruốc, có màu đỏ từ ớt. Bún bò Huế thường có thịt bò, giò heo, chả lụa và ăn kèm với rau sống.",
+  "type": "food",
+  "brandId": {
+    "$oid": "660bb62cc6047aa2e00deb56"
+  },
+  "categoryId": {
+    "$oid": "668677aa8994155b8d886954"
+  },
+  "__v": 0,
+  "rating": 2.4,
+  "hot": false
+},
+{
+  "_id": {
+    "$oid": "668679cfb97721e2bdfaf87e"
+  },
+  "name": "Bún riêu",
+  "price": 40000,
+  "img": "bunrieu.webp",
+  "description": "Là món bún với nước dùng nấu từ cua đồng, có màu đỏ của cà chua, thêm đậu hũ, huyết, giò heo và ăn kèm với rau sống, mắm tôm.",
+  "type": "food",
+  "brandId": {
+    "$oid": "660bb62cc6047aa2e00deb56"
+  },
+  "categoryId": {
+    "$oid": "668677aa8994155b8d886954"
+  },
+  "__v": 0,
+  "rating": 5,
+  "hot": false
+},
+{
+  "_id": {
+    "$oid": "668679f4b97721e2bdfaf880"
+  },
+  "name": "Phở",
+  "price": 400000,
+  "img": "pho.jpg",
+  "description": "Là món nước truyền thống, với bánh phở (sợi bún lớn) và nước dùng từ xương bò hoặc gà, thơm mùi hồi, quế, gừng. Phở thường có thịt bò hoặc gà, hành lá, rau thơm và chấm nước mắm hoặc tương đen.",
+  "type": "food",
+  "brandId": {
+    "$oid": "660bb62cc6047aa2e00deb56"
+  },
+  "categoryId": {
+    "$oid": "668677aa8994155b8d886954"
+  },
+  "__v": 0,
+  "rating": 3,
+  "hot": true
+},
+{
+  "_id": {
+    "$oid": "66867a2db97721e2bdfaf882"
+  },
+  "name": "Cơm tấm",
+  "price": 40000,
+  "img": "comtam.jpg",
+  "description": "Là món ăn gồm cơm từ gạo tấm (gạo vỡ), thịt sườn nướng, bì, chả trứng và dưa leo, cà chua. Thường ăn kèm với nước mắm chua ngọt và mỡ hành.",
+  "type": "food",
+  "brandId": {
+    "$oid": "660bb62cc6047aa2e00deb56"
+  },
+  "categoryId": {
+    "$oid": "6600ea9b5936faf9c09d4623"
+  },
+  "__v": 0,
+  "rating": 4.5,
+  "hot": true
+},
+{
+  "_id": {
+    "$oid": "66867a72b97721e2bdfaf884"
+  },
+  "name": "Hột vịt lộn:",
+  "price": 10000,
+  "img": "hotvitlon.webp",
+  "description": " Là trứng vịt được ấp cho tới khi thành phôi rồi luộc chín, ăn kèm với rau răm, muối tiêu chanh hoặc gừng, ớt.",
+  "type": "food",
+  "brandId": {
+    "$oid": "660bb62cc6047aa2e00deb56"
+  },
+  "categoryId": {
+    "$oid": "668677b28994155b8d886956"
+  },
+  "__v": 0,
+  "rating": 3,
+  "hot": true
+},
+{
+  "_id": {
+    "$oid": "66867c5fb97721e2bdfaf886"
+  },
+  "name": "Sashimi (刺身)",
+  "price": 150000,
+  "img": "Sashimi (刺身).jpg",
+  "description": "Nhắc tới Nhật bản là nhắc tới sashimi. Sashimi là món khai vị trong bữa ăn trang trọng ở Nhật Bản. Trong ẩm thực, sashimi được coi là nét văn hóa Nhật Bản đề cao sự tinh tế. Sashimi là tên gọi chung của những món ăn có nguyên liệu chính là hải sản tươi sống. Sự tươi ngon của các nguyên liệu đặc biệt quan trọng đối với món sashimi. Sashimi ăn kết hợp cùng với mù tạt, lá tía tô, củ cải trắng,… Món ăn chứa thành phần dinh dưỡng cao rất tốt cho sức khỏe.",
+  "type": "food",
+  "brandId": {
+    "$oid": "66867ae90de1c9d6ffb2fbca"
+  },
+  "categoryId": {
+    "$oid": "6600ea9b5936faf9c09d4623"
+  },
+  "__v": 0,
+  "rating": 3,
+  "hot": true
+},
+{
+  "_id": {
+    "$oid": "66867d1db97721e2bdfaf888"
+  },
+  "name": "Tempura (天ぷら)",
+  "price": 99000,
+  "img": "Tempura (天ぷら).jpg",
+  "description": "Tempura là món ăn Nhật Bản gồm các loại hải sản, rau củ, rau rừng, … được tẩm bột và chiên ngập trong dầu. Nguyên liệu chính của nó bao gồm tôm, mực, cà tím, bí ngô, vv… Món ăn có vị giòn và ngon ngọt. Để thưởng thức hương vị tinh tế của tempura, chúng thường được ăn kèm với muối tinh hoặc nước sốt có chút vị ngọt kết hợp với nước dùng daishi. Củ cải bào hoặc gừng cùng được coi là thức ăn kèm mang đến cảm giác thơm ngon, khó lòng từ chối.",
+  "type": "food",
+  "brandId": {
+    "$oid": "66867ae90de1c9d6ffb2fbca"
+  },
+  "categoryId": {
+    "$oid": "6600ea9b5936faf9c09d4623"
+  },
+  "__v": 0,
+  "rating": 5,
+  "hot": true
+},
+{
+  "_id": {
+    "$oid": "66867d71b97721e2bdfaf88a"
+  },
+  "name": "Súp miso (味噌汁)",
+  "price": 35000,
+  "img": "Súp miso (味噌汁).jpg",
+  "description": "Một trong những yếu tố quan trọng tạo nên một bữa ăn kiểu Nhật không thể thiếu được đó là súp miso. Hương vị của súp miso có thể nói là biểu tượng của món ăn Nhật Bản, là hương vị quê hương mà dù ai đi xa cũng nhớ về. Súp miso là sự kết hợp từ vị của miso và vị của súp dashi. Ngoài ra còn có các nguyên liệu khác như đậu phụ, rong biển… được thêm vào tạo nên sự đa dạng của miso. Mỗi gia đình người Nhật đều có một món súp miso riêng, và khi nhắc đến “súp miso” người ta lại ưu ái gọi nó bằng cái tên kiêu hãnh ” món ăn linh hồn dân tộc’’.",
+  "type": "food",
+  "brandId": {
+    "$oid": "66867ae90de1c9d6ffb2fbca"
+  },
+  "categoryId": {
+    "$oid": "668677aa8994155b8d886954"
+  },
+  "__v": 0,
+  "rating": 3,
+  "hot": true
+},
+{
+  "_id": {
+    "$oid": "66867dc2b97721e2bdfaf88c"
+  },
+  "name": "Cơm nắm onigiri (おにぎり)",
+  "price": 60000,
+  "img": "Cơm nắm onigiri (おにぎり).jpg",
+  "description": "Cơm nắm đã gắn bó với cuộc sống của người dân Nhật Bản từ xa xưa. Món ăn đơn giản mà ai cũng có thể làm được, một nắm cơm được bọc một lớp rong biển ngoài, phần nhân bên trong là các nguyên liệu truyền thống như: thịt cá hồi, umeboshi, cá bào katsuobushi,… hay các nguyên liệu hiện đại như tôm mayonaise, cá ngừ mayonaise, bơ… Cơm nắm được nắm thành cái loại hình dạng khác nhau nhưng chủ yếu là hình tam giác. Tuy cách làm cùng nguyên liệu đơn giản nhưng món ăn vẫn toát lên sự thơm ngon của gạo bởi vậy dù cuộc sống hiện đại nhưng onigiri vẫn là thức ăn nhanh được người Nhật vô cùng yêu thích.",
+  "type": "food",
+  "brandId": {
+    "$oid": "66867ae90de1c9d6ffb2fbca"
+  },
+  "categoryId": {
+    "$oid": "6600ea9b5936faf9c09d4623"
+  },
+  "__v": 0,
+  "rating": 3,
+  "hot": true
+},
+{
+  "_id": {
+    "$oid": "66867e19b97721e2bdfaf88e"
+  },
+  "name": "Mì udon (うどん)",
+  "price": 120000,
+  "img": "Mì udon (うどん).jpg",
+  "description": "Mì udon Nhật Bản có sợi mì trắng tinh, to tròn, bóng bẩy, được làm bằng cách thêm nước muối vào bột mì, cắt bột thành các dải, và cuối cùng luộc chúng trong nước sôi. Nó được xem là một loại thực phẩm dễ tiêu hóa. Sợi mì dày và dai hơn mì kiều mạch, có nhiều cách chế biến tùy thuộc vùng miền. Đặc biệt là sự khác biệt giữa udon vùng kansai và udon vùng kanto. Tuy nhiên, dù ở đâu thì việc vừa ăn mì vừa tạo ra tiếng xì xụp cũng đã trở thành nét văn hóa ăn mì độc đáo có một không hai của người Nhật.",
+  "type": "food",
+  "brandId": {
+    "$oid": "66867ae90de1c9d6ffb2fbca"
+  },
+  "categoryId": {
+    "$oid": "668677aa8994155b8d886954"
+  },
+  "__v": 0,
+  "rating": 3,
+  "hot": false
+},
+{
+  "_id": {
+    "$oid": "66867e64b97721e2bdfaf890"
+  },
+  "name": "Mì Ramen (ラメン)",
+  "price": 170000,
+  "img": "Mì Ramen (ラメン).jpg",
+  "description": "Giống như Udon và Soba, Ramen không bắt nguồn từ Nhật Bản nhưng nó đã trở thành món ăn quốc dân ở Nhật Bản từ lâu. Người Nhật đã thành công trong việc đào sâu khái niệm ramen và lan rộng sự hiện diện của nó không chỉ ở Nhật Bản mà còn trên toàn thế giới. Các cửa hàng ramen có ở khắp mọi nơi trên thành phố và thị trấn ở Nhật Bản. Có ba loại ramen điển hình: hương vị tonkotsu (xương heo), hương vị shio (muối) và hương vị miso (chứa rau và thịt).",
+  "type": "food",
+  "brandId": {
+    "$oid": "66867ae90de1c9d6ffb2fbca"
+  },
+  "categoryId": {
+    "$oid": "668677aa8994155b8d886954"
+  },
+  "__v": 0,
+  "rating": 4.5,
+  "hot": true
+},
+{
+  "_id": {
+    "$oid": "66867eaab97721e2bdfaf892"
+  },
+  "name": "Cơm cà ri (カレー)",
+  "price": 130000,
+  "img": "Cơm cà ri (カレー).jpg",
+  "description": "Đúng như tên gọi của nó, cơm cà ri là một món ăn mà cà ri được ăn cùng với cơm trắng. Cơm cari vốn không có nguồn gốc từ Nhật Bản, nó xuất phát từ Ấn Độ nhưng được người Nhật biến tấu phù hợp với khẩu vị của đất nước này. Cơm cà ri được chia làm 2 phần riêng biệt: cơm và sốt riêng. Phần sốt được chế biến từ thịt cùng rất nhiều loại rau củ giàu dinh dưỡng: khoai tây, cà rốt, hành tây,… Vị của cà ri ngọt, ít cay, đậm đặc, sánh mịn, xứng đáng là món ăn quốc dân Nhật Bản.",
+  "type": "food",
+  "brandId": {
+    "$oid": "66867ae90de1c9d6ffb2fbca"
+  },
+  "categoryId": {
+    "$oid": "6600ea9b5936faf9c09d4623"
+  },
+  "__v": 0,
+  "rating": 3.5,
+  "hot": false
+},
+{
+  "_id": {
+    "$oid": "66867ef0b97721e2bdfaf894"
+  },
+  "name": "Cơm trộn trứng sống (卵かけご飯)",
+  "price": 80000,
+  "img": "Cơm trộn trứng sống (卵かけご飯).jpg",
+  "description": "Cơm trộn với trứng sống là đặc sản khó cưỡng đến từ văn hóa của đất nước Nhật Bản xinh đẹp. Cách làm vô cùng đơn giản bởi nguyên liệu của nó chỉ bao gồm: một bát cơm nóng, nước tương và một quả trứng gà sống. Đập trứng lên trên bát cơm, chan một chút nước tương rồi trộn đều lên là bạn đã có ngay một bữa sáng kiểu Nhật ngon lành. Ngày nay, món cơm trộn trứng sống còn trở nên hấp dẫn hơn bởi nó được ăn kết hợp với các nguyên liệu khác như: cá ngừ bào, đậu tương lên men, kim chi,…",
+  "type": "food",
+  "brandId": {
+    "$oid": "66867ae90de1c9d6ffb2fbca"
+  },
+  "categoryId": {
+    "$oid": "6600ea9b5936faf9c09d4623"
+  },
+  "__v": 0,
+  "rating": 3,
+  "hot": false
+},
+{
+  "_id": {
+    "$oid": "66867f45b97721e2bdfaf896"
+  },
+  "name": "Bánh gạo khô (煎餅)",
+  "price": 50000,
+  "img": "Bánh gạo khô (煎餅).jpg",
+  "description": "Senbei là một loại bánh gạo truyền thống của Nhật Bản. Nó là một loại bánh khô được ăn kèm với trà xanh. Được làm từ bột gạo hoặc bột mì, rồi được đem nướng chín trong lò hoặc trên bếp than củi. Hình dạng và kích thước vô cùng đa dạng. Ăn chiếc bánh gạo khô Nhật, bạn sẽ cảm nhận được hương vị ngọt ngào của gạo- mùi vị mang tinh hoa của đất trời.",
+  "type": "food",
+  "brandId": {
+    "$oid": "66867ae90de1c9d6ffb2fbca"
+  },
+  "categoryId": {
+    "$oid": "668677b28994155b8d886956"
+  },
+  "__v": 0,
+  "rating": 5,
+  "hot": false
+},
+{
+  "_id": {
+    "$oid": "66867f7fb97721e2bdfaf898"
+  },
+  "name": "Takoyaki (たこ焼き)",
+  "price": 40000,
+  "img": "Takoyaki (たこ焼き).jpg",
+  "description": "Tako có nghĩa là bạch tuộc, yaki là nướng, takoyaki có nghĩa là bạch tuộc nướng. Takoyaki, có nguồn gốc từ Osaka, là một trong những “món ăn bột mì” phổ biến nhất mà người Nhật yêu thích cùng với okonomiyaki, negiyaki và Imagawayaki. Nguyên liệu chính không thể thiếu là bạch tuộc kết hợp cùng bột mì, bột dashi, tenkasu, trứng gà, bắp cải, gừng, hành chua. Một chút vụn cá ngừ hòa lẫn mùi sệt mịn của sốt mayonnaise, bên ngoài giòn giòn, bên trong ngậy thơm, bạch tuộc dai dai, sần sật khiến cho ai đã từng thưởng thức được hương vị của takoyaki sẽ không thể nào quên được.",
+  "type": "food",
+  "brandId": {
+    "$oid": "66867ae90de1c9d6ffb2fbca"
+  },
+  "categoryId": {
+    "$oid": "668677b28994155b8d886956"
+  },
+  "__v": 0,
+  "rating": 4,
+  "hot": false
+}]

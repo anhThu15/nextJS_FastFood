@@ -1,0 +1,55 @@
+[{
+  "_id": {
+    "$oid": "669cd8e7f7da18bbc338bbcd"
+  },
+  "name": "test mới nha",
+  "email": "iamthief1412@gmail.com",
+  "phone": 1234556789,
+  "password": "$2a$10$QHK9/rb4ce3KyToEsYsCqOeMBvFmTjrxKQ1xzJS1Oyg8ZkU8coKAO",
+  "permission_user": "user",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669cd9aa7c7d7c30a513f7b7"
+  },
+  "name": "haha giỡn thôi",
+  "email": "test2@gmail.com",
+  "phone": 1234556789,
+  "password": "$2a$10$Ki/f5o0mupBvO5WuxP1MYutzv2wg.lfTxCp/M1PTq/aopTF3kA34.",
+  "permission_user": "admin",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "669cdea1063c918bcc1e65e2"
+  },
+  "name": "anh Thư nè bây ",
+  "email": "thu@gmail.com",
+  "phone": 398999249,
+  "password": "$2a$10$j818spWFKuoo4LRE6EitEeDwMJgH1wq/0NtksMECXtE6ne.xOw9vu",
+  "permission_user": "user",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66ab633204f089a94e026d3a"
+  },
+  "name": "ê thử lại nè",
+  "email": "e@gmail.com",
+  "phone": 398992459,
+  "password": "$2a$10$1x8vfpE2s0PxBRZLQK00NeuGi9LTBz8dTl.sCb3UmC7.pVxxK9FLO",
+  "permission_user": "admin",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66ae39520b22901cffc8a666"
+  },
+  "name": "jwt2",
+  "email": "jwt2@gmail.com",
+  "phone": 12313412423,
+  "password": "$2a$10$4dfGl6e3VXEiQrOT0beGh.SUe8VXrqGveZbosQF5vcEYN8Hh3i2oC",
+  "permission_user": "admin",
+  "__v": 0
+}]

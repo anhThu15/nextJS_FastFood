@@ -1,0 +1,129 @@
+[{
+  "_id": {
+    "$oid": "669de43281d5fb08141ae906"
+  },
+  "address": "giao đến nhà nha ",
+  "orderDetail": [
+    {
+      "_id": {
+        "$oid": "669de43281d5fb08141ae907"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "669de43281d5fb08141ae909"
+      }
+    }
+  ],
+  "status": "done",
+  "total": 15000,
+  "id_user": {
+    "$oid": "669cd8e7f7da18bbc338bbcd"
+  },
+  "__v": 1,
+  "day": {
+    "$date": "2024-08-06T13:06:57.448Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "669df65c81d5fb08141aea03"
+  },
+  "address": "đại đi ",
+  "orderDetail": [
+    {
+      "_id": {
+        "$oid": "669df65c81d5fb08141aea04"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "669df65c81d5fb08141aea06"
+      }
+    }
+  ],
+  "status": "ship",
+  "total": 450000,
+  "id_user": {
+    "$oid": "66ab633204f089a94e026d3a"
+  },
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "66b1db7e99c51df6686678f9"
+  },
+  "address": "đến nhà nè ",
+  "orderDetail": [
+    {
+      "_id": {
+        "$oid": "66b1db7e99c51df6686678fa"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "66b1db7e99c51df6686678fc"
+      }
+    }
+  ],
+  "status": "wait",
+  "total": 111000,
+  "id_user": {
+    "$oid": "66ae39520b22901cffc8a666"
+  },
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "66b1de565c235788bf194407"
+  },
+  "address": "bbbb",
+  "orderDetail": [
+    {
+      "_id": {
+        "$oid": "66b1de565c235788bf194408"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "66b1de565c235788bf19440a"
+      }
+    }
+  ],
+  "status": "done",
+  "total": 28000,
+  "id_user": {
+    "$oid": "66ae39520b22901cffc8a666"
+  },
+  "day": {
+    "$date": "2024-08-06T08:27:02.838Z"
+  },
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "66b231c8c84e60e61ab32bcf"
+  },
+  "address": "loteria",
+  "orderDetail": [
+    {
+      "_id": {
+        "$oid": "66b231c8c84e60e61ab32bd0"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "66b231c8c84e60e61ab32bd2"
+      }
+    }
+  ],
+  "status": "wait",
+  "total": 240000,
+  "id_user": {
+    "$oid": "66ae39520b22901cffc8a666"
+  },
+  "day": {
+    "$date": "2024-08-06T14:23:04.832Z"
+  },
+  "__v": 1
+}]
