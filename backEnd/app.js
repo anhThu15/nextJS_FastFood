@@ -12,7 +12,7 @@ const mongoose = require('mongoose');
 require('./models/productModel')
 
 // connect database
-mongoose.connect('mongodb://127.0.0.1:27017/FastFood', {})
+mongoose.connect('mongodb+srv://anhThu1507:anhThu%401507@backend.tr627ak.mongodb.net/FastFood', {})
   .then(() => console.log('>>>>>>>>>> DB Connected!!!!!!'))
   .catch(err => console.log('>>>>>>>>> DB Error: ', err));
 
